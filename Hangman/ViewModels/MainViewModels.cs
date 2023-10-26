@@ -1,0 +1,263 @@
+﻿using Hangman.Commands;
+using Hangman.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
+namespace Hangman.ViewModels
+{
+    public class MainViewModels : INotifyPropertyChanged
+    {
+        private const int MaxAttempessToGuessWord = 10;
+        private ObservableCollection<char> _guessingLetters = new();
+        private string _gameStatus = "Kliknij przycisk Nowa Gra...";
+        private Brush _backgroundColor = Brushes.Transparent;
+        private BitmapSource? _hangmanPicture;
+        private List<String> _availaibleWord = new List<string>();
+        private Dictionary<string, string> _availaibleWordWithExplanation = new Dictionary<string, string>();
+        private readonly Random random = new Random();
+        private string _guessingWord = string.Empty;
+        private string _wordExplanation = string.Empty;
+        private string _partOfSpeach = string.Empty;
+        private int _fontSizeTB = 20;
+        private int _wrongAttempts;
+        private bool _isGameOver = false;
+        private string _helpMeValue = "Podpowiedz:)";
+        private int _helpCounter = 0;
+        private int _howManyWordsInHelp;
+
+        public MainViewModels()
+        {
+            NewGameCommand = new RelayCommand(NewGame);
+            KeyClickedCommand = new RelayCommand(KeyClicked);
+            HelpMeCommand = new RelayCommand(HelpMe);
+
+            GetAvailableWordsFromFile();
+        }
+
+        private void HelpMe(object obj)
+        {
+            if (string.IsNullOrEmpty(_guessingWord))
+                return;
+            else
+            {
+                _helpCounter++;
+                if (_helpCounter == 1) GameStatus = _wordExplanation;
+                if (_helpCounter == 2) GameStatus = _wordExplanation + $" ({_partOfSpeach})";
+                if (_helpCounter >= 3) HelpMeValue = GetAPartOfGuessingWord();
+            }
+        }
+
+        private string GetAPartOfGuessingWord()
+        {
+            if (_howManyWordsInHelp < _guessingWord.Length) _howManyWordsInHelp++;
+
+            return _guessingWord.Substring(0, _howManyWordsInHelp);
+        }
+
+        private void GetAvailableWordsFromFile()
+        {
+            if (!FileHelpers.FileExists())
+                FileHelpers.CreateNewFile();
+
+            _availaibleWordWithExplanation = FileHelpers.GetAwailableWordsWithExplanation();
+            _availaibleWord = _availaibleWordWithExplanation.Keys.Select(x => x).ToList<string>();
+        }
+
+        public ICommand NewGameCommand { get; set; }
+        public ICommand KeyClickedCommand { get; set; }
+        public ICommand HelpMeCommand { get; set; }
+
+
+        private void KeyClicked(object clickedButton)
+        {
+            if (_isGameOver) { return; }
+
+            ((Button)clickedButton).IsEnabled = false;
+
+            char choosenKey = Convert.ToChar(((Button)clickedButton).Content);
+
+            var keyExistsInGuessingWord = _guessingWord.Contains(choosenKey);
+
+            if (!keyExistsInGuessingWord)
+            {
+                _wrongAttempts++;
+                UpdateImage();
+                if (_wrongAttempts == MaxAttempessToGuessWord)
+                {
+                    _isGameOver = true;
+                    GameStatus = $"Przegrałeś. Prawidłowe hasło to: {_guessingWord}";
+                    BackgroundColor = Brushes.Red;
+                }
+                return;
+            }
+
+            for (int i = 0; i < _guessingWord.Length; i++)
+            {
+                if (_guessingWord[i] == choosenKey)
+                    GuessingLetters[i] = choosenKey;
+            }
+
+            if (!GuessingLetters.Contains('\0'))
+            {
+                _isGameOver = true;
+                GameStatus = "Super - wygrana jest twoja:)";
+                BackgroundColor = Brushes.DarkGoldenrod;
+            }
+        }
+
+        private void NewGame(object keyboardGrid)
+        {
+            EnableKeyboard(keyboardGrid as Grid);
+            NewRandomWord();
+            //Task.Delay(10000).Wait();
+            InitBoard();
+            _isGameOver = false;
+            _wrongAttempts = 0;
+            UpdateImage();
+            GameStatus = "Kliknijk w wybraną literę w celu odgadnięcia hasła.";
+            BackgroundColor = Brushes.Transparent;
+            _howManyWordsInHelp = 0;
+            HelpMeValue = "Podpowiedz:)";
+            _helpCounter = 0;
+            FontSizeTB = 20;
+            //HelpMe(null);
+        }
+
+        private void UpdateImage()
+        {
+            HangmanPicture =
+                new BitmapImage(new Uri(Path.Combine(Environment.CurrentDirectory, "Images", $"{_wrongAttempts}_mistake.png")));
+
+        }
+
+        private void InitBoard()
+        {
+            _guessingLetters.Clear();
+
+            foreach (var item in _guessingWord)
+            {
+                if (item == ' ')
+                {
+                    _guessingLetters.Add(' ');
+                    continue;
+                }
+
+                //dodajemy obramowanie dla niepustych
+                _guessingLetters.Add('\0');
+            }
+        }
+
+        private void NewRandomWord()
+        {
+            //var randomIx = random.Next(_availaibleWord.Count);
+            //_guessingWord = _availaibleWord[randomIx];
+            //_wordExplanation = _availaibleWordWithExplanation[_guessingWord];
+
+            (string Word, string Text, string PartOfS) wt = (string.Empty, string.Empty, string.Empty);
+
+            Task task = Task.Run(() =>
+            {
+                GetWordAndExpl getWordAndExpl = new GetWordAndExpl();
+                var wae = getWordAndExpl.GetWAndE();
+
+                wt = (wae.Word, wae.Text, wae.PartOfSpeech);
+
+            });
+            task.Wait();
+
+            FontSizeTB = wt.Word.Length < 50 ? 20 : 20 * 50 / wt.Word.Length;
+            _guessingWord = wt.Word.ToUpper();
+            _wordExplanation = wt.Text;
+            _partOfSpeach = wt.PartOfS;
+        }
+
+        private void EnableKeyboard(Grid? grid)
+        {
+            var stackPannelsKeyboard = grid.Children;
+
+            foreach (StackPanel stackPanel in stackPannelsKeyboard)
+                foreach (Button button in stackPanel.Children)
+                    button.IsEnabled = true;
+        }
+
+        public string HelpMeValue
+        {
+            get { return _helpMeValue; }
+            set
+            {
+                _helpMeValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public BitmapSource HangmanPicture
+        {
+            get { return _hangmanPicture; }
+            set
+            {
+                _hangmanPicture = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Brush BackgroundColor
+        {
+            get { return _backgroundColor; }
+            set
+            {
+                _backgroundColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string GameStatus
+        {
+            get { return _gameStatus; }
+            set
+            {
+                _gameStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int FontSizeTB
+        {
+            get { return _fontSizeTB; }
+            set
+            {
+                _fontSizeTB = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<char> GuessingLetters
+        {
+            get { return _guessingLetters; }
+            set
+            {
+                _guessingLetters = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        //implementacja interface
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

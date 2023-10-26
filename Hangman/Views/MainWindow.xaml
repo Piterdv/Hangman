@@ -1,0 +1,375 @@
+﻿<mah:MetroWindow
+    x:Class="Hangman.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Hangman.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:Hangman"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Wisielec"
+    Width="1000"
+    Height="700"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <mah:MetroWindow.Resources>
+        <converters:LetterToBorderThicknessConverter x:Key="LetterToBorderThicknessConverter" />
+        <Style
+            x:Key="BaseButton"
+            BasedOn="{StaticResource {x:Type Button}}"
+            TargetType="Button">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <Style
+            x:Key="KeyboardButton"
+            BasedOn="{StaticResource {x:Type Button}}"
+            TargetType="Button">
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Width" Value="85" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style
+            x:Key="LetterLabel"
+            BasedOn="{StaticResource {x:Type Label}}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="Orange" />
+            <Setter Property="FontWeight" Value="Black" />
+        </Style>
+
+    </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="Open up the GitHub site">
+                <iconPacks:PackIconModern
+                    Width="22"
+                    Height="22"
+                    Kind="MarvelShield" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--  I WIERSZ  -->
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!-- CommandParameter="{Binding ElementName=Keyboard}" ->>> 135 - <Grid x:Name="Keyboard">-->
+            <Button
+                Command="{Binding NewGameCommand}"
+                CommandParameter="{Binding ElementName=Keyboard}"
+                Content="Nowa gra"
+                Style="{StaticResource BaseButton}" />
+            <Button
+                Grid.Column="1"
+                Command="{Binding HelpMeCommand}"
+                Content="{Binding HelpMeValue}"
+                Style="{StaticResource BaseButton}" />
+            <!--<Label
+                Grid.Column="2"
+                Margin="8,10,12,10"
+                HorizontalContentAlignment="Center"
+                Content="{Binding GameStatus}"
+                FontSize="20" />-->
+            <ScrollViewer
+                Grid.Column="2"
+                Height="60"
+                Margin="0,-7,0,0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <TextBlock
+                    Margin="8,10,12,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    FontSize="{Binding FontSizeTB}"
+                    Text="{Binding GameStatus}"
+                    TextWrapping="Wrap" />
+            </ScrollViewer>
+            <!--  make label with verical slider  -->
+
+
+
+        </Grid>
+
+        <!--  II WIERSZ  -->
+
+        <ScrollViewer
+            Grid.Row="1"
+            Margin="5"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl Background="{Binding BackgroundColor}" ItemsSource="{Binding GuessingLetters}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label
+                            BorderThickness="{Binding Converter={StaticResource LetterToBorderThicknessConverter}}"
+                            Content="{Binding}"
+                            Style="{StaticResource LetterLabel}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!--  III ROW  -->
+
+        <Border
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Width="960"
+            Margin="10"
+            BorderBrush="Orange"
+            BorderThickness="2">
+            <Grid x:Name="Keyboard">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Q"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="W"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="E"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="R"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="T"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Y"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="U"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="I"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="O"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="P"
+                        Style="{StaticResource KeyboardButton}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="A"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="S"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="D"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="F"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="G"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="H"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="J"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="K"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="L"
+                        Style="{StaticResource KeyboardButton}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Z"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="X"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="C"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="V"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="B"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="N"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="M"
+                        Style="{StaticResource KeyboardButton}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ą"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ć"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ę"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ł"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ń"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ó"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ś"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ż"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="Ź"
+                        Style="{StaticResource KeyboardButton}" />
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <Image
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Margin="10,40,10,10"
+            VerticalAlignment="Center"
+            Source="{Binding HangmanPicture}" />
+
+    </Grid>
+</mah:MetroWindow>
