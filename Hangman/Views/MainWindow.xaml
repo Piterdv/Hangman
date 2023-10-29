@@ -105,12 +105,13 @@
                 FontSize="20" />-->
             <ScrollViewer
                 Grid.Column="2"
+                Grid.ColumnSpan="2"
                 Height="60"
                 Margin="0,-7,0,0"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
                 <TextBlock
-                    Margin="8,10,12,10"
+                    Margin="8,5,12,5"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     FontSize="{Binding FontSizeTB}"
@@ -317,6 +318,23 @@
                     <Button
                         Command="{Binding KeyClickedCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="-"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content="'"
+                        Style="{StaticResource KeyboardButton}" />
+                    <Button
+                        Width="300"
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                        Content=" "
+                        Style="{StaticResource KeyboardButton}" />
+                    <!--
+                    <Button
+                        Command="{Binding KeyClickedCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                         Content="Ą"
                         Style="{StaticResource KeyboardButton}" />
                     <Button
@@ -358,7 +376,7 @@
                         Command="{Binding KeyClickedCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                         Content="Ź"
-                        Style="{StaticResource KeyboardButton}" />
+                        Style="{StaticResource KeyboardButton}" />-->
                 </StackPanel>
 
             </Grid>

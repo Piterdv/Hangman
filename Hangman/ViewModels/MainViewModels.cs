@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -19,7 +20,7 @@ namespace Hangman.ViewModels
     {
         private const int MaxAttempessToGuessWord = 10;
         private ObservableCollection<char> _guessingLetters = new();
-        private string _gameStatus = "Kliknij przycisk Nowa Gra...";
+        private string _gameStatus = "Kliknij przycisk \"NOWA GRA\"...";
         private Brush _backgroundColor = Brushes.Transparent;
         private BitmapSource? _hangmanPicture;
         private List<String> _availaibleWord = new List<string>();
@@ -46,14 +47,21 @@ namespace Hangman.ViewModels
 
         private void HelpMe(object obj)
         {
-            if (string.IsNullOrEmpty(_guessingWord))
-                return;
-            else
+            if (string.IsNullOrEmpty(_guessingWord)) return;
+
+            _helpCounter++;
+            switch (_helpCounter)
             {
-                _helpCounter++;
-                if (_helpCounter == 1) GameStatus = _wordExplanation;
-                if (_helpCounter == 2) GameStatus = _wordExplanation + $" ({_partOfSpeach})";
-                if (_helpCounter >= 3) HelpMeValue = GetAPartOfGuessingWord();
+                case 1:
+                    FontSizeTB = _wordExplanation.Length < 50 ? 20 : 20 * 50 / _wordExplanation.Length >= 15 ? 20 * 50 / _wordExplanation.Length : 15;
+                    GameStatus = _wordExplanation;
+                    break;
+                case 2:
+                    GameStatus = _wordExplanation + $" ({_partOfSpeach})";
+                    break;
+                default:
+                    HelpMeValue = GetAPartOfGuessingWord();
+                    break;
             }
         }
 
@@ -119,7 +127,6 @@ namespace Hangman.ViewModels
         {
             EnableKeyboard(keyboardGrid as Grid);
             NewRandomWord();
-            //Task.Delay(10000).Wait();
             InitBoard();
             _isGameOver = false;
             _wrongAttempts = 0;
@@ -130,7 +137,6 @@ namespace Hangman.ViewModels
             HelpMeValue = "Podpowiedz:)";
             _helpCounter = 0;
             FontSizeTB = 20;
-            //HelpMe(null);
         }
 
         private void UpdateImage()
@@ -163,22 +169,30 @@ namespace Hangman.ViewModels
             //_guessingWord = _availaibleWord[randomIx];
             //_wordExplanation = _availaibleWordWithExplanation[_guessingWord];
 
+            GetWordAndExplFromWordnik();
+        }
+
+        private void GetWordAndExplFromWordnik()
+        {
             (string Word, string Text, string PartOfS) wt = (string.Empty, string.Empty, string.Empty);
+
+            Mouse.OverrideCursor = Cursors.Wait;
 
             Task task = Task.Run(() =>
             {
                 GetWordAndExpl getWordAndExpl = new GetWordAndExpl();
                 var wae = getWordAndExpl.GetWAndE();
 
-                wt = (wae.Word, wae.Text, wae.PartOfSpeech);
+                wt = (wae.Word, wae.Text[0], wae.PartOfSpeech);
 
             });
             task.Wait();
 
-            FontSizeTB = wt.Word.Length < 50 ? 20 : 20 * 50 / wt.Word.Length;
             _guessingWord = wt.Word.ToUpper();
             _wordExplanation = wt.Text;
             _partOfSpeach = wt.PartOfS;
+
+            Mouse.OverrideCursor = Cursors.Arrow;
         }
 
         private void EnableKeyboard(Grid? grid)
@@ -249,8 +263,6 @@ namespace Hangman.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
 
         //implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;
