@@ -44,7 +44,7 @@ namespace Hangman.ViewModels
             HelpMeCommand = new RelayCommand(HelpMe);
             ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaQwerty);
 
-            GetAvailableWordsFromFile();
+            //GetAvailableWordsFromFile();
         }
 
         private void ToggleAlphaQwerty(object obj)
@@ -53,8 +53,13 @@ namespace Hangman.ViewModels
 
             for (int i = 0; i < 26; i++)
             {
-                var button = (obj as Grid).Children.Cast<StackPanel>().SelectMany(x => x.Children.Cast<Button>()).Where(x => x.Name == $"_{i}").FirstOrDefault();
-                if (button != null) { button.Content = button.Content.ToString() == ((Alphabet)i).ToString() ? ((Qwerty)i).ToString() : ((Alphabet)i).ToString(); }
+                Button? button = ((Grid)obj).Children.Cast<StackPanel>()
+                                .SelectMany(x => x.Children.Cast<Button>())
+                                .FirstOrDefault(x => x.Name == $"_{i}");
+                if (button != null)
+                {
+                    button.Content = button.Content.ToString() == ((Alphabet)i).ToString() ? ((Qwerty)i).ToString() : ((Alphabet)i).ToString();
+                }
             }
         }
 
