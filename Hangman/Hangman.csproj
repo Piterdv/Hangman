@@ -5,7 +5,11 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Version>1.0.3</Version>
+		<PublisherName>Piroundsoft</PublisherName>
+		<Authors>Piotr Ludwiński</Authors>
+		<Company>Piroundsoft</Company>
+		<Product>Hangman</Product>
+		<Version>1.0.7</Version>
 		<IsPublishable>True</IsPublishable>
 		<Title>Wisielec/Hangman</Title>
 		<Description>Prosta gra w nauczanie słówek albo coś tam innego</Description>

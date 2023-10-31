@@ -35,14 +35,27 @@ namespace Hangman.ViewModels
         private string _helpMeValue = "Podpowiedz:)";
         private int _helpCounter = 0;
         private int _howManyWordsInHelp;
+        private bool _alphabetBtnEnable = true;
 
         public MainViewModels()
         {
             NewGameCommand = new RelayCommand(NewGame);
             KeyClickedCommand = new RelayCommand(KeyClicked);
             HelpMeCommand = new RelayCommand(HelpMe);
+            ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaQwerty);
 
             GetAvailableWordsFromFile();
+        }
+
+        private void ToggleAlphaQwerty(object obj)
+        {
+            if (obj == null) return;
+
+            for (int i = 0; i < 26; i++)
+            {
+                var button = (obj as Grid).Children.Cast<StackPanel>().SelectMany(x => x.Children.Cast<Button>()).Where(x => x.Name == $"_{i}").FirstOrDefault();
+                if (button != null) { button.Content = button.Content.ToString() == ((Alphabet)i).ToString() ? ((Qwerty)i).ToString() : ((Alphabet)i).ToString(); }
+            }
         }
 
         private void HelpMe(object obj)
@@ -84,13 +97,19 @@ namespace Hangman.ViewModels
         public ICommand NewGameCommand { get; set; }
         public ICommand KeyClickedCommand { get; set; }
         public ICommand HelpMeCommand { get; set; }
+        public ICommand ToggleAlphaQwertyCommand { get; set; }
 
 
         private void KeyClicked(object clickedButton)
         {
-            if (_isGameOver) { return; }
+            if (_isGameOver)
+            {
+                AlphabetBtnEnable = true;
+                return;
+            }
 
             ((Button)clickedButton).IsEnabled = false;
+            if (_alphabetBtnEnable) AlphabetBtnEnable = false;
 
             char choosenKey = Convert.ToChar(((Button)clickedButton).Content);
 
@@ -137,6 +156,7 @@ namespace Hangman.ViewModels
             HelpMeValue = "Podpowiedz:)";
             _helpCounter = 0;
             FontSizeTB = 20;
+            AlphabetBtnEnable = true;
         }
 
         private void UpdateImage()
@@ -240,6 +260,17 @@ namespace Hangman.ViewModels
             set
             {
                 _gameStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //AlphabetBtnEnable
+        public bool AlphabetBtnEnable
+        {
+            get { return _alphabetBtnEnable; }
+            set
+            {
+                _alphabetBtnEnable = value;
                 OnPropertyChanged();
             }
         }
