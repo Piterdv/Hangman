@@ -20,7 +20,7 @@ namespace Hangman.ViewModels
     {
         private const int MaxAttempessToGuessWord = 10;
         private ObservableCollection<char> _guessingLetters = new();
-        private string _gameStatus = "Kliknij przycisk \"NOWA GRA\"...";
+        private string _gameStatus = "Click on button \"NEW GAME\"...";
         private Brush _backgroundColor = Brushes.Transparent;
         private BitmapSource? _hangmanPicture;
         private List<String> _availaibleWord = new List<string>();
@@ -32,7 +32,7 @@ namespace Hangman.ViewModels
         private int _fontSizeTB = 20;
         private int _wrongAttempts;
         private bool _isGameOver = false;
-        private string _helpMeValue = "Podpowiedz:)";
+        private string _helpMeValue = "HELP ME, please...";
         private int _helpCounter = 0;
         private int _howManyWordsInHelp;
         private bool _alphabetBtnEnable = true;
@@ -71,7 +71,7 @@ namespace Hangman.ViewModels
             switch (_helpCounter)
             {
                 case 1:
-                    FontSizeTB = _wordExplanation.Length < 50 ? 20 : 20 * 50 / _wordExplanation.Length >= 15 ? 20 * 50 / _wordExplanation.Length : 15;
+                    SetProperSizeOfFontInHelp(_wordExplanation);
                     GameStatus = _wordExplanation;
                     break;
                 case 2:
@@ -81,6 +81,11 @@ namespace Hangman.ViewModels
                     HelpMeValue = GetAPartOfGuessingWord();
                     break;
             }
+        }
+
+        private void SetProperSizeOfFontInHelp(string str)
+        {
+            FontSizeTB = str.Length < 50 ? 20 : 20 * 50 / str.Length >= 15 ? 20 * 50 / str.Length : 15;
         }
 
         private string GetAPartOfGuessingWord()
@@ -142,7 +147,7 @@ namespace Hangman.ViewModels
             if (!GuessingLetters.Contains('\0'))
             {
                 _isGameOver = true;
-                GameStatus = "Super - wygrana jest twoja:)";
+                GameStatus = "You are the winner, congratulations :)";
                 BackgroundColor = Brushes.DarkGoldenrod;
             }
         }
@@ -155,10 +160,10 @@ namespace Hangman.ViewModels
             _isGameOver = false;
             _wrongAttempts = 0;
             UpdateImage();
-            GameStatus = "Kliknijk w wybraną literę w celu odgadnięcia hasła.";
+            if (!_wordExplanation.Contains("Wait a moment")) GameStatus = "Click the choosen letter to guess the entry";
             BackgroundColor = Brushes.Transparent;
             _howManyWordsInHelp = 0;
-            HelpMeValue = "Podpowiedz:)";
+            HelpMeValue = "HELP ME, please...";
             _helpCounter = 0;
             FontSizeTB = 20;
             AlphabetBtnEnable = true;
@@ -213,9 +218,19 @@ namespace Hangman.ViewModels
             });
             task.Wait();
 
-            _guessingWord = wt.Word.ToUpper();
-            _wordExplanation = wt.Text;
-            _partOfSpeach = wt.PartOfS;
+            if (wt.Word.Contains("ErrorTMR"))
+            {
+                _guessingWord = "?";
+                _wordExplanation = "Wait a moment because you try to get too many words is short period of time. Wait 10s ;)";
+                _partOfSpeach = "?";
+                GameStatus = _wordExplanation;
+            }
+            else
+            {
+                _guessingWord = wt.Word.ToUpper();
+                _wordExplanation = wt.Text;
+                _partOfSpeach = wt.PartOfS;
+            }
 
             Mouse.OverrideCursor = Cursors.Arrow;
         }

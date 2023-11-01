@@ -11,6 +11,7 @@
     Title="Wisielec"
     Width="1030"
     Height="700"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
@@ -105,7 +106,7 @@
             <Button
                 Command="{Binding NewGameCommand}"
                 CommandParameter="{Binding ElementName=Keyboard}"
-                Content="Nowa gra"
+                Content="New Game"
                 Style="{StaticResource BaseButton}" />
 
             <ScrollViewer
@@ -383,8 +384,29 @@
                         <Button
                             Width="300"
                             Command="{Binding HelpMeCommand}"
-                            Content="{Binding HelpMeValue}"
-                            Style="{StaticResource BaseButton}" />
+                            Style="{StaticResource BaseButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="50"
+                                    Margin="0,-8,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Cursor="Help"
+                                    FontSize="45"
+                                    FontWeight="Bold"
+                                    Foreground="Orange"
+                                    Text="?">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBlock
+                                    Width="250"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding HelpMeValue}" />
+                            </StackPanel>
+                        </Button>
                         <!--<StackPanel>
                             <Label Content="Alphabeticaly" />
                             <mah:ToggleSwitch
