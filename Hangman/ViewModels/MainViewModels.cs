@@ -7,12 +7,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Hangman.ViewModels
 {
@@ -36,6 +37,7 @@ namespace Hangman.ViewModels
         private int _helpCounter = 0;
         private int _howManyWordsInHelp;
         private bool _alphabetBtnEnable = true;
+        private int _increment = 0;
 
         public MainViewModels()
         {
@@ -156,11 +158,16 @@ namespace Hangman.ViewModels
         {
             EnableKeyboard(keyboardGrid as Grid);
             NewRandomWord();
+            if (_wordExplanation.Contains("Wait a moment"))
+            {
+                Counter();
+                return;
+            }
             InitBoard();
             _isGameOver = false;
             _wrongAttempts = 0;
             UpdateImage();
-            if (!_wordExplanation.Contains("Wait a moment")) GameStatus = "Click the choosen letter to guess the entry";
+            GameStatus = "Click the choosen letter to guess the entry";
             BackgroundColor = Brushes.Transparent;
             _howManyWordsInHelp = 0;
             HelpMeValue = "HELP ME, please...";
@@ -208,6 +215,9 @@ namespace Hangman.ViewModels
 
             Mouse.OverrideCursor = Cursors.Wait;
 
+            _wordExplanation = "Uno momento, I need to take some word from server...";
+            GameStatus = _wordExplanation;
+
             Task task = Task.Run(() =>
             {
                 GetWordAndExpl getWordAndExpl = new GetWordAndExpl();
@@ -221,7 +231,7 @@ namespace Hangman.ViewModels
             if (wt.Word.Contains("ErrorTMR"))
             {
                 _guessingWord = "?";
-                _wordExplanation = "Wait a moment because you try to get too many words is short period of time. Wait 10s ;)";
+                _wordExplanation = "Wait a moment because you try to get too many words is short period of time. Wait 60s ;)";
                 _partOfSpeach = "?";
                 GameStatus = _wordExplanation;
             }
@@ -233,6 +243,44 @@ namespace Hangman.ViewModels
             }
 
             Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        void Counter()
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            string its = (60 - _increment++).ToString();
+            its = its.Length == 2 ? its : "0" + its;
+            _guessingWord = its;
+            if (_increment == 1) InitBoard();
+            MakeCounter(its);
+            MakeCounter(its, 1);
+            if (_increment == 60)
+            {
+                _increment = 0;
+                ((DispatcherTimer)sender).Stop();
+                _guessingWord = "OK";
+                _wordExplanation = "Oh yeah, now it's OK:) Click on button \"NEW GAME\"!";
+                GameStatus = _wordExplanation;
+                Mouse.OverrideCursor = Cursors.Arrow;
+            }
+        }
+
+        private void MakeCounter(string its, int frst = 0)
+        {
+            char choosenKey = Convert.ToChar(its.Substring(frst, 1));
+            for (int i = 0; i < _guessingWord.Length; i++)
+            {
+                if (_guessingWord[i] == choosenKey)
+                    GuessingLetters[i] = choosenKey;
+            }
         }
 
         private void EnableKeyboard(Grid? grid)
@@ -284,7 +332,6 @@ namespace Hangman.ViewModels
             }
         }
 
-        //AlphabetBtnEnable
         public bool AlphabetBtnEnable
         {
             get { return _alphabetBtnEnable; }
