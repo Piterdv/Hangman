@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -85,9 +84,9 @@ namespace Hangman.ViewModels
             }
         }
 
-        private void SetProperSizeOfFontInHelp(string str)
+        private void SetProperSizeOfFontInHelp(string str, int max = 80)
         {
-            FontSizeTB = str.Length < 50 ? 20 : 20 * 50 / str.Length >= 15 ? 20 * 50 / str.Length : 15;
+            FontSizeTB = str.Length < max ? 20 : 20 * max / str.Length >= 15 ? 20 * max / str.Length : 15;
         }
 
         private string GetAPartOfGuessingWord()
@@ -231,7 +230,7 @@ namespace Hangman.ViewModels
             if (wt.Word.Contains("ErrorTMR"))
             {
                 _guessingWord = "?";
-                _wordExplanation = "Wait a moment because you try to get too many words is short period of time. Wait 60s ;)";
+                _wordExplanation = "Wait a moment, because you try to get too many words is short period of time. Wait 60s ;)";
                 _partOfSpeach = "?";
                 GameStatus = _wordExplanation;
             }
@@ -262,7 +261,7 @@ namespace Hangman.ViewModels
             if (_increment == 1) InitBoard();
             MakeCounter(its);
             MakeCounter(its, 1);
-            if (_increment == 60)
+            if (_increment >= 60)
             {
                 _increment = 0;
                 ((DispatcherTimer)sender).Stop();
@@ -362,7 +361,7 @@ namespace Hangman.ViewModels
             }
         }
 
-        //implementacja interface
+        //------------------implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

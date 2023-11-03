@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Hangman.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPack="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Modern"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:Hangman"
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -16,6 +17,7 @@
     mc:Ignorable="d">
 
     <mah:MetroWindow.Resources>
+
         <converters:LetterToBorderThicknessConverter x:Key="LetterToBorderThicknessConverter" />
 
         <Style
@@ -70,6 +72,18 @@
             <Setter Property="Margin" Value="0,5,0,0" />
             <Setter Property="Width" Value="80" />
             <Setter Property="FontWeight" Value="Light" />
+        </Style>
+
+        <Style
+            x:Key="MetroButton"
+            BasedOn="{StaticResource {x:Type Button}}"
+            TargetType="Button">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Margin" Value="2,5,0,0" />
+            <Setter Property="Background" Value="#2f2f2f" />
+            <Setter Property="Foreground" Value="orange" />
+            <Setter Property="Padding" Value="0,-2,0,0" />
         </Style>
 
     </mah:MetroWindow.Resources>
@@ -177,6 +191,15 @@
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
+                <Button Style="{DynamicResource MetroButton}">
+                    <iconPack:PackIconModern Kind="New" />
+                </Button>
+                <Button Style="{StaticResource MetroButton}">
+                    <iconPack:PackIconModern Kind="Save" />
+                </Button>
+                <Button Style="{StaticResource MetroButton}">
+                    <iconPack:PackIconModern Kind="DrinksMartini" />
+                </Button>
 
             </StackPanel>
 
