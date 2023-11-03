@@ -44,8 +44,16 @@ namespace Hangman.ViewModels
             KeyClickedCommand = new RelayCommand(KeyClicked);
             HelpMeCommand = new RelayCommand(HelpMe);
             ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaQwerty);
+            ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
 
             //GetAvailableWordsFromFile();
+        }
+
+        private void ChooseDictionary(object obj)
+        {
+
+            System.Media.SystemSounds.Beep.Play();
+
         }
 
         private void ToggleAlphaQwerty(object obj)
@@ -109,6 +117,7 @@ namespace Hangman.ViewModels
         public ICommand KeyClickedCommand { get; set; }
         public ICommand HelpMeCommand { get; set; }
         public ICommand ToggleAlphaQwertyCommand { get; set; }
+        public ICommand ChooseDictionaryCommand { get; set; }
 
 
         private void KeyClicked(object clickedButton)

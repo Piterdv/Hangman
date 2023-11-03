@@ -83,8 +83,33 @@
             <Setter Property="Margin" Value="2,5,0,0" />
             <Setter Property="Background" Value="#2f2f2f" />
             <Setter Property="Foreground" Value="orange" />
-            <Setter Property="Padding" Value="0,-2,0,0" />
+            <Setter Property="Padding" Value="0,-4,0,0" />
         </Style>
+
+        <Style
+            x:Key="OrangeTB"
+            BasedOn="{StaticResource {x:Type TextBlock}}"
+            TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Orange" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style
+            x:Key="OrangeTBSm"
+            BasedOn="{StaticResource OrangeTB}"
+            TargetType="TextBlock">
+            <Setter Property="FontSize" Value="7" />
+            <Setter Property="Margin" Value="0,-1,0,-2" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
 
     </mah:MetroWindow.Resources>
 
@@ -191,14 +216,96 @@
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
-                <Button Style="{DynamicResource MetroButton}">
-                    <iconPack:PackIconModern Kind="New" />
+                <!--<Button
+                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Add this word to dictionary">
+                    <iconPack:PackIconModern Kind="Add" />
                 </Button>
-                <Button Style="{StaticResource MetroButton}">
-                    <iconPack:PackIconModern Kind="Save" />
+                <Button
+                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Edit dictionary">
+                    <iconPack:PackIconModern Kind="Edit" />
+                </Button>-->
+                <!--<Button
+                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
+                    Command="{Binding ChooseDictionaryCommand}"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Choose dictionary to play">
+                    <iconPack:PackIconModern Kind="Book" RenderTransformOrigin="0.5,0.5">
+                        <iconPacks:PackIconModern.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="-19.963" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </iconPacks:PackIconModern.RenderTransform>
+                    </iconPack:PackIconModern>
+                </Button>-->
+                <Button
+                    Command="{Binding ChooseDictionaryCommand}"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Add this word to dictionary">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource OrangeTB}" Text="+" />
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="2,4,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="A" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
+                        </StackPanel>
+                    </Grid>
                 </Button>
-                <Button Style="{StaticResource MetroButton}">
-                    <iconPack:PackIconModern Kind="DrinksMartini" />
+                <Button
+                    Command="{Binding ChooseDictionaryCommand}"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Edit dictionary">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource OrangeTB}" Text="E" />
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="2,4,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="I" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="T" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+                <Button
+                    Command="{Binding ChooseDictionaryCommand}"
+                    Style="{DynamicResource MetroButton}"
+                    ToolTip="Choose dictionary to play">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource OrangeTB}" Text="D" />
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="2,4,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="I" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="C" />
+                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="T" />
+                        </StackPanel>
+                    </Grid>
                 </Button>
 
             </StackPanel>
