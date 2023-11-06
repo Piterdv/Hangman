@@ -20,97 +20,6 @@
 
         <converters:LetterToBorderThicknessConverter x:Key="LetterToBorderThicknessConverter" />
 
-        <Style
-            x:Key="BaseButton"
-            BasedOn="{StaticResource {x:Type Button}}"
-            TargetType="Button">
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Width" Value="150" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-        </Style>
-
-        <Style
-            x:Key="KeyboardButton"
-            BasedOn="{StaticResource {x:Type Button}}"
-            TargetType="Button">
-            <Setter Property="IsEnabled" Value="False" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="80" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style
-            x:Key="LetterLabel"
-            BasedOn="{StaticResource {x:Type Label}}"
-            TargetType="Label">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Width" Value="50" />
-            <Setter Property="Height" Value="50" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="Orange" />
-            <Setter Property="FontWeight" Value="Black" />
-        </Style>
-
-        <Style
-            x:Key="ToggleButtonV"
-            BasedOn="{StaticResource {x:Type ToggleButton}}"
-            TargetType="ToggleButton">
-            <Setter Property="LayoutTransform">
-                <Setter.Value>
-                    <RotateTransform Angle="270" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="Margin" Value="0,5,0,0" />
-            <Setter Property="Width" Value="80" />
-            <Setter Property="FontWeight" Value="Light" />
-        </Style>
-
-        <Style
-            x:Key="MetroButton"
-            BasedOn="{StaticResource {x:Type Button}}"
-            TargetType="Button">
-            <Setter Property="Width" Value="28" />
-            <Setter Property="Height" Value="28" />
-            <Setter Property="Margin" Value="2,5,0,0" />
-            <Setter Property="Background" Value="#2f2f2f" />
-            <Setter Property="Foreground" Value="orange" />
-            <Setter Property="Padding" Value="0,-4,0,0" />
-        </Style>
-
-        <Style
-            x:Key="OrangeTB"
-            BasedOn="{StaticResource {x:Type TextBlock}}"
-            TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Orange" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="0,0,0,0" />
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect />
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style
-            x:Key="OrangeTBSm"
-            BasedOn="{StaticResource OrangeTB}"
-            TargetType="TextBlock">
-            <Setter Property="FontSize" Value="7" />
-            <Setter Property="Margin" Value="0,-1,0,-2" />
-            <Setter Property="TextAlignment" Value="Center" />
-        </Style>
-
-
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.LeftWindowCommands>
@@ -216,44 +125,16 @@
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
-                <!--<Button
-                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Add this word to dictionary">
-                    <iconPack:PackIconModern Kind="Add" />
-                </Button>
-                <Button
-                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Edit dictionary">
-                    <iconPack:PackIconModern Kind="Edit" />
-                </Button>-->
-                <!--<Button
-                    mah:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
-                    Command="{Binding ChooseDictionaryCommand}"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Choose dictionary to play">
-                    <iconPack:PackIconModern Kind="Book" RenderTransformOrigin="0.5,0.5">
-                        <iconPacks:PackIconModern.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform Angle="-19.963" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </iconPacks:PackIconModern.RenderTransform>
-                    </iconPack:PackIconModern>
-                </Button>-->
                 <Button
                     Command="{Binding ChooseDictionaryCommand}"
                     Style="{DynamicResource MetroButton}"
                     ToolTip="Add this word to dictionary">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="7" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource OrangeTB}" Text="+" />
+                        <TextBlock Style="{StaticResource OrangeTBBg}" Text="+" />
                         <StackPanel
                             Grid.Column="1"
                             Margin="2,4,0,0"
@@ -271,8 +152,8 @@
                     ToolTip="Edit dictionary">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="7" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource OrangeTB}" Text="E" />
                         <StackPanel
@@ -292,8 +173,8 @@
                     ToolTip="Choose dictionary to play">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="7" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource OrangeTB}" Text="D" />
                         <StackPanel
