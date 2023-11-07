@@ -1,34 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Hangman.UserControls
 {
-    /// <summary>
-    /// Interaction logic for PtvButton.xaml
-    /// </summary>
     public partial class PtvButton : UserControl
     {
+
+        public static readonly DependencyProperty ButtonTextProperty = DependencyProperty.Register(
+            "Text",
+            typeof(string),
+            typeof(PtvButton),
+            new PropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty ButtonClickCommandProperty = DependencyProperty.Register(
+            "ButtonClickCommand",
+            typeof(ICommand),
+            typeof(PtvButton),
+            new PropertyMetadata(default(ICommand)));
+
+        public static readonly DependencyProperty ButtonClickCommandParameterProperty = DependencyProperty.Register(
+            "ButtonClickCommandParameter",
+            typeof(object),
+            typeof(PtvButton),
+            new PropertyMetadata(default(object)));
+
         public PtvButton()
         {
             InitializeComponent();
         }
-
-        public static readonly DependencyProperty ButtonTextProperty = DependencyProperty.Register("Text",
-            typeof(string),
-            typeof(PtvButton),
-            new PropertyMetadata(default(string))); //było "" zamiast default(string)
 
         public string ButtonText
         {
@@ -55,37 +55,16 @@ namespace Hangman.UserControls
             }
         }
 
-        public static readonly DependencyProperty ButtonClickCommandProperty = DependencyProperty.Register(
-        "ButtonClickCommand", typeof(ICommand), typeof(PtvButton), new PropertyMetadata(default(ICommand)));
-
         public ICommand ButtonClickCommand
         {
             get { return (ICommand)GetValue(ButtonClickCommandProperty); }
             set { SetValue(ButtonClickCommandProperty, value); }
         }
 
-
-        //public static readonly DependencyProperty MyCommandProperty = DependencyProperty.Register("MyCommand",
-        //    typeof(ICommand),
-        //    typeof(PtvButton),
-        //    new PropertyMetadata(default(ICommand)));
-
-        //public ICommand MyCommand
-        //{
-        //    get { return (ICommand)GetValue(MyCommandProperty); }
-        //    set { SetValue(MyCommandProperty, value); }
-        //}
-
-        ////add method to handle MyCommandParameter
-        //public static readonly DependencyProperty MyCommandParameterProperty = DependencyProperty.Register("MyCommandParameter",
-        //               typeof(object),
-        //                          typeof(PtvButton),
-        //                                     new PropertyMetadata(default(object)));
-        //public object MyCommandParameter
-        //{
-        //    get { return GetValue(MyCommandParameterProperty); }
-        //    set { SetValue(MyCommandParameterProperty, value); }
-        //}
-
+        public object ButtonClickCommandParameter
+        {
+            get { return GetValue(ButtonClickCommandParameterProperty); }
+            set { SetValue(ButtonClickCommandParameterProperty, value); }
+        }
     }
 }

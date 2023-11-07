@@ -6,10 +6,8 @@
     xmlns:local="clr-namespace:Hangman.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="root"
-    d:DesignHeight="31"
-    d:DesignWidth="31"
     mc:Ignorable="d">
-    <Grid Margin="-1,-4,0,0">
+    <Grid >
         <Button Command="{Binding ElementName=root, Path=ButtonClickCommand}" Style="{DynamicResource MetroButton}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -22,8 +20,9 @@
                     Text="{Binding ButtonText}" />
                 <StackPanel
                     Grid.Column="1"
-                    Margin="2,5,0,0"
+                    Margin="0,1,0,0"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Orientation="Vertical">
                     <TextBlock
                         x:Name="SmL1"

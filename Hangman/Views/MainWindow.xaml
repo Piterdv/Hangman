@@ -74,10 +74,6 @@
                     Text="{Binding GameStatus}"
                     TextWrapping="Wrap" />
             </ScrollViewer>
-            <!--  make label with verical slider  -->
-
-
-
         </Grid>
 
         <!--  II WIERSZ  -->
@@ -120,25 +116,25 @@
                     CommandParameter="{Binding ElementName=Keyboard}"
                     Content="Alphabetical"
                     IsEnabled="{Binding AlphabetBtnEnable}"
-                    Style="{StaticResource ToggleButtonV}" />
+                    Style="{StaticResource ToggleButtonV}"
+                    ToolTip="Toggle between APLHABETICAL and QWERTY order on keyboard." />
                 <ToggleButton
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
-                <Separator />
                 <mycntr:PtvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="+ADD"
-                    ToolTip="Klick on me..." />
+                    ToolTip="Add this word to dictionary." />
                 <mycntr:PtvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="EDIT"
-                    ToolTip="Edit dictionary" />
+                    ToolTip="Edit dictionary." />
                 <mycntr:PtvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="√GET"
-                    ToolTip="Get default dictionary" />
+                    ToolTip="Get choosen dictionary to play." />
             </StackPanel>
             <Border
                 Grid.Column="1"
@@ -367,63 +363,7 @@
                                     Text="{Binding HelpMeValue}" />
                             </StackPanel>
                         </Button>
-                        <!--<StackPanel>
-                            <Label Content="Alphabeticaly" />
-                            <mah:ToggleSwitch
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                OffContent="QW..."
-                                OnContent="Al..."
-                                />
-                        </StackPanel>-->
-                        <!--
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ą"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ć"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ę"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ł"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ń"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ó"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ś"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ż"
-                        Style="{StaticResource KeyboardButton}" />
-                    <Button
-                        Command="{Binding KeyClickedCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                        Content="Ź"
-                        Style="{StaticResource KeyboardButton}" />-->
                     </StackPanel>
-
                 </Grid>
             </Border>
         </Grid>
@@ -433,6 +373,5 @@
             Margin="10,40,10,10"
             VerticalAlignment="Center"
             Source="{Binding HangmanPicture}" />
-
     </Grid>
 </mah:MetroWindow>
