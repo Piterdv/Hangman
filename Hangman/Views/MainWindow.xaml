@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:Hangman"
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mycntr="clr-namespace:Hangman.UserControls"
     Title="Wisielec"
     Width="1030"
     Height="700"
@@ -125,72 +126,20 @@
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
-                <Button
-                    Command="{Binding ChooseDictionaryCommand}"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Add this word to dictionary">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="16" />
-                            <ColumnDefinition Width="7" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource OrangeTBBg}" Text="+" />
-                        <StackPanel
-                            Grid.Column="1"
-                            Margin="2,4,0,0"
-                            HorizontalAlignment="Center"
-                            Orientation="Vertical">
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="A" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
-                <Button
-                    Command="{Binding ChooseDictionaryCommand}"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Edit dictionary">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="16" />
-                            <ColumnDefinition Width="7" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource OrangeTB}" Text="E" />
-                        <StackPanel
-                            Grid.Column="1"
-                            Margin="2,4,0,0"
-                            HorizontalAlignment="Center"
-                            Orientation="Vertical">
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="D" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="I" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="T" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
-                <Button
-                    Command="{Binding ChooseDictionaryCommand}"
-                    Style="{DynamicResource MetroButton}"
-                    ToolTip="Choose dictionary to play">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="16" />
-                            <ColumnDefinition Width="7" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Style="{StaticResource OrangeTB}" Text="D" />
-                        <StackPanel
-                            Grid.Column="1"
-                            Margin="2,4,0,0"
-                            HorizontalAlignment="Center"
-                            Orientation="Vertical">
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="I" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="C" />
-                            <TextBlock Style="{StaticResource OrangeTBSm}" Text="T" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
-
+                <Separator />
+                <mycntr:PtvButton
+                    ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonText="+ADD"
+                    ToolTip="Klick on me..." />
+                <mycntr:PtvButton
+                    ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonText="EDIT"
+                    ToolTip="Edit dictionary" />
+                <mycntr:PtvButton
+                    ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonText="√GET"
+                    ToolTip="Get default dictionary" />
             </StackPanel>
-
             <Border
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
