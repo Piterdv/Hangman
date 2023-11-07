@@ -1,5 +1,6 @@
 ﻿using Hangman.Commands;
 using Hangman.Helpers;
+using Hangman.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+
 
 namespace Hangman.ViewModels
 {
@@ -53,7 +55,8 @@ namespace Hangman.ViewModels
         {
 
             System.Media.SystemSounds.Beep.Play();
-
+            DictionaryWindow dictionaryWindow = new DictionaryWindow();
+            dictionaryWindow.ShowDialog();
         }
 
         private void ToggleAlphaQwerty(object obj)

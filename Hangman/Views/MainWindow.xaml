@@ -77,7 +77,6 @@
         </Grid>
 
         <!--  II WIERSZ  -->
-        <Label Grid.Row="1" Content="{Binding MyTimer}" />
         <ScrollViewer
             Grid.Row="1"
             Margin="5"
