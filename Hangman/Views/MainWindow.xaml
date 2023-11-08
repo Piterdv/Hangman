@@ -122,15 +122,15 @@
                     VerticalAlignment="Center"
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
-                <mycntr:PtvButton
+                <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="+ADD"
                     ToolTip="Add this word to dictionary." />
-                <mycntr:PtvButton
+                <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="EDIT"
                     ToolTip="Edit dictionary." />
-                <mycntr:PtvButton
+                <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="√GET"
                     ToolTip="Get choosen dictionary to play." />

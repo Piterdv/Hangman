@@ -4,28 +4,28 @@ using System.Windows.Input;
 
 namespace Hangman.UserControls
 {
-    public partial class PtvButton : UserControl
+    public partial class PdvButton : UserControl
     {
 
         public static readonly DependencyProperty ButtonTextProperty = DependencyProperty.Register(
             "Text",
             typeof(string),
-            typeof(PtvButton),
+            typeof(PdvButton),
             new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty ButtonClickCommandProperty = DependencyProperty.Register(
             "ButtonClickCommand",
             typeof(ICommand),
-            typeof(PtvButton),
+            typeof(PdvButton),
             new PropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty ButtonClickCommandParameterProperty = DependencyProperty.Register(
             "ButtonClickCommandParameter",
             typeof(object),
-            typeof(PtvButton),
+            typeof(PdvButton),
             new PropertyMetadata(default(object)));
 
-        public PtvButton()
+        public PdvButton()
         {
             InitializeComponent();
         }
