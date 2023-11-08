@@ -7,22 +7,22 @@ namespace Hangman.UserControls
     public partial class PdvButtonBig : UserControl
     {
 
-        public static readonly DependencyProperty ButtonTextProperty = DependencyProperty.Register(
-            "Text",
+        public static readonly DependencyProperty ButtonBigTextProperty = DependencyProperty.Register(
+            "TextBig",
             typeof(string),
-            typeof(PdvButton),
+            typeof(PdvButtonBig),
             new PropertyMetadata(default(string)));
 
-        public static readonly DependencyProperty ButtonClickCommandProperty = DependencyProperty.Register(
-            "ButtonClickCommand",
+        public static readonly DependencyProperty ButtonBigClickCommandProperty = DependencyProperty.Register(
+            "ButtonBigClickCommand",
             typeof(ICommand),
-            typeof(PdvButton),
+            typeof(PdvButtonBig),
             new PropertyMetadata(default(ICommand)));
 
-        public static readonly DependencyProperty ButtonClickCommandParameterProperty = DependencyProperty.Register(
-            "ButtonClickCommandParameter",
+        public static readonly DependencyProperty ButtonBigClickCommandParameterProperty = DependencyProperty.Register(
+            "ButtonBigClickCommandParameter",
             typeof(object),
-            typeof(PdvButton),
+            typeof(PdvButtonBig),
             new PropertyMetadata(default(object)));
 
         public PdvButtonBig()
@@ -30,28 +30,28 @@ namespace Hangman.UserControls
             InitializeComponent();
         }
 
-        public string ButtonText
+        public string ButtonBigText
         {
-            get { return (string)GetValue(ButtonTextProperty); }
+            get { return (string)GetValue(ButtonBigTextProperty); }
             set
             {
-                SetValue(ButtonTextProperty, value);
+                SetValue(ButtonBigTextProperty, value);
 
                     BigLetter.Text = value[0].ToString();
                     BtnText.Text = value.ToString().Substring(1);
             }
         }
 
-        public ICommand ButtonClickCommand
+        public ICommand ButtonBigClickCommand
         {
-            get { return (ICommand)GetValue(ButtonClickCommandProperty); }
-            set { SetValue(ButtonClickCommandProperty, value); }
+            get { return (ICommand)GetValue(ButtonBigClickCommandProperty); }
+            set { SetValue(ButtonBigClickCommandProperty, value); }
         }
 
-        public object ButtonClickCommandParameter
+        public object ButtonBigClickCommandParameter
         {
-            get { return GetValue(ButtonClickCommandParameterProperty); }
-            set { SetValue(ButtonClickCommandParameterProperty, value); }
+            get { return GetValue(ButtonBigClickCommandParameterProperty); }
+            set { SetValue(ButtonBigClickCommandParameterProperty, value); }
         }
     }
 }

@@ -22,7 +22,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="600" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -37,6 +37,11 @@
             Grid.Row="0"
             Grid.Column="1"
             Style="{StaticResource OrangeTBox}" />
+        <mycntr:PdvButtonBig
+            Grid.Column="2"
+            ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+            ButtonBigText="+Add new dictionary"
+            ToolTip="Click on me to add a new dictionary of name from text box." />
 
         <!--  ROW I  -->
         <TextBlock
@@ -47,6 +52,12 @@
             Grid.Row="1"
             Grid.Column="1"
             Style="{StaticResource OrangeTBox}" />
+        <mycntr:PdvButtonBig
+            Grid.Row="1"
+            Grid.Column="2"
+            ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+            ButtonBigText="+Add word to dictionary"
+            ToolTip="Click on me to add this word to this dictionary." />
 
 
         <!--  ROW II  -->
