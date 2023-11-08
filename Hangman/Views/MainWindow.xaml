@@ -57,6 +57,7 @@
                 CommandParameter="{Binding ElementName=Keyboard}"
                 Content="New Game"
                 Style="{StaticResource BaseButton}" />
+            <!--<mycntr:PdvButtonBig></mycntr:PdvButtonBig>-->
 
             <ScrollViewer
                 Grid.Column="1"

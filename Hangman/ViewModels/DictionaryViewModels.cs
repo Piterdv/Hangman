@@ -21,9 +21,15 @@ namespace Hangman.ViewModels
 
         public DictionaryViewModels()
         {
-
+            CreateNewDictionaryCommand= new RelayCommand(CreateNewDictionary);
         }
 
+        private void CreateNewDictionary(object obj)
+        {
+            System.Media.SystemSounds.Beep.Play();
+        }
+
+        public ICommand CreateNewDictionaryCommand { get; set; }
 
         //------------------implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;

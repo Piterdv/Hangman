@@ -5,33 +5,40 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Hangman.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="root">
-
-    <Button
-        Width="150"
-        Command="{Binding ElementName=root, Path=ButtonClickCommand}"
-        Style="{DynamicResource MetroButton}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="120" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                x:Name="BigLetter"
-                Style="{StaticResource OrangeTBBg}"
-                Text="N" />
-            <TextBlock
-                x:Name="BtnText"
-                Grid.Column="1"
-                Width="117"
-                Margin="3,2,0,0"
-                HorizontalAlignment="Left"
-                FontSize="12"
-                FontWeight="Light"
-                Style="{StaticResource OrangeTBNormal}"
-                Text="Create new dictionary"
-                TextAlignment="Left" />
-        </Grid>
-    </Button>
+    x:Name="root"
+    d:DesignHeight="40"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+    <Grid>
+        <Button
+            Width="200"
+            Height="40"
+            Margin="-2"
+            Command="{Binding ElementName=root, Path=ButtonBigClickCommand}"
+            Style="{DynamicResource MetroButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="165" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="BigLetter"
+                    Margin="3,-5,0,0"
+                    Style="{StaticResource OrangeTBBg}"
+                    Text="N" />
+                <TextBlock
+                    x:Name="BtnText"
+                    Grid.Column="1"
+                    Width="150"
+                    Margin="10,2,0,0"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Light"
+                    Style="{StaticResource OrangeTBNormal}"
+                    Text="Create new dictionary"
+                    TextAlignment="Left" />
+            </Grid>
+        </Button>
+    </Grid>
 </UserControl>
 

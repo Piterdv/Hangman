@@ -54,7 +54,7 @@ namespace Hangman.ViewModels
         private void ChooseDictionary(object obj)
         {
 
-            System.Media.SystemSounds.Beep.Play();
+            //System.Media.SystemSounds.Beep.Play();
             DictionaryWindow dictionaryWindow = new DictionaryWindow();
             dictionaryWindow.ShowDialog();
         }
