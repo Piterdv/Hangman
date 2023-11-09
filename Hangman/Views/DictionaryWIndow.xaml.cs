@@ -9,5 +9,6 @@ namespace Hangman.Views
             InitializeComponent();
             DataContext = new DictionaryViewModels();
         }
+
     }
 }

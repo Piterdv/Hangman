@@ -18,19 +18,19 @@
             Style="{DynamicResource MetroButton}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="35" />
                     <ColumnDefinition Width="165" />
                 </Grid.ColumnDefinitions>
                 <TextBlock
                     x:Name="BigLetter"
-                    Margin="3,-5,0,0"
+                    Margin="6,-2,0,0"
                     Style="{StaticResource OrangeTBBg}"
                     Text="N" />
                 <TextBlock
                     x:Name="BtnText"
-                    Grid.Column="1"
-                    Width="150"
-                    Margin="10,2,0,0"
+                    Grid.Column="2"
+                    Width="158"
+                    Margin="5,2,0,0"
                     HorizontalAlignment="Left"
                     FontSize="14"
                     FontWeight="Light"
