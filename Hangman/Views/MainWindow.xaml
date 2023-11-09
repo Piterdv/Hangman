@@ -125,6 +125,7 @@
                     Style="{StaticResource ToggleButtonV}" />
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonClickCommandParameter="{Binding ElementName=Keyboard}"
                     ButtonText="+ADD"
                     ToolTip="Add this word to dictionary." />
                 <mycntr:PdvButton

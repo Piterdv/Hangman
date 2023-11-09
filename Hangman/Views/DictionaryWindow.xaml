@@ -10,6 +10,7 @@
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mycntr="clr-namespace:Hangman.UserControls"
+    x:Name="DWindow"
     Title="Wisielec - Dictionary"
     Width="1020"
     Height="690"
@@ -72,6 +73,30 @@
             AcceptsReturn="True"
             Style="{StaticResource OrangeTBox}"
             TextWrapping="Wrap" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Grid.Column="2"
+            VerticalAlignment="Bottom">
+            <mycntr:PdvButtonBig
+                Margin="0,0,0,10"
+                ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+                ButtonBigText="√Save changes"
+                ToolTip="Click on me to add this explanation to this word." />
+            <mycntr:PdvButtonBig
+                Margin="0,0,0,10"
+                ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+                ButtonBigText="#Copy all as new"
+                ToolTip="Click on me to add this example to this word." />
+            <!--  ButtonBigClickCommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"  -->
+            <!--  ButtonBigClickCommandParameter="{Binding ElementName=DWindow}"  -->
+            <mycntr:PdvButtonBig
+                Margin="0,0,0,10"
+                ButtonBigClickCommand="{Binding CloseCommand}"
+                ButtonBigClickCommandParameter="{Binding ElementName=DWindow}"
+                ButtonBigText="XClose"
+                ToolTip="Click on me to add this example to this word." />
+        </StackPanel>
 
 
         <!--  ROW III  -->

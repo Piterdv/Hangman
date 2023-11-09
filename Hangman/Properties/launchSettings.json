@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Hangman": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

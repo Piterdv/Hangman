@@ -1,18 +1,8 @@
 ﻿using Hangman.Commands;
-using Hangman.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace Hangman.ViewModels
 {
@@ -22,6 +12,12 @@ namespace Hangman.ViewModels
         public DictionaryViewModels()
         {
             CreateNewDictionaryCommand= new RelayCommand(CreateNewDictionary);
+            CloseCommand = new RelayCommand(Close);
+        }
+
+        private void Close(object obj)
+        {
+            (obj as Window)?.Close();
         }
 
         private void CreateNewDictionary(object obj)
@@ -30,6 +26,8 @@ namespace Hangman.ViewModels
         }
 
         public ICommand CreateNewDictionaryCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
+
 
         //------------------implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;
