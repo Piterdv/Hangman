@@ -36,8 +36,17 @@ namespace Hangman.Helpers
 
                 string newFileText = DateTime.Now.ToString("yyyy-MM-dd HH:mm") + $" | {fileName} | Dictionary have been creaded.";
                 File.AppendAllText(fullPath, newFileText);
+                MessageBox.Show($"Dictionary {fileName[..^4]} was created.");
+            }
+            else
+            {
                 MessageBox.Show($"Dictionary {fileName[..^4]} was choosen.");
             }
+        }
+
+        public static void AddWordToDictionary(string fullPath, string word, string explanation, string speechPart)
+        {
+            File.AppendAllText(fullPath,Environment.NewLine + $"{word}|{explanation}|{speechPart}");
         }
 
         static public Dictionary<string, string> GetAwailableWordsWithExplanation()
