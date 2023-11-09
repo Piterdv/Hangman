@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -51,6 +50,12 @@ namespace Hangman.ViewModels
 
             //GetAvailableWordsFromFile();
         }
+
+        public ICommand NewGameCommand { get; set; }
+        public ICommand KeyClickedCommand { get; set; }
+        public ICommand HelpMeCommand { get; set; }
+        public ICommand ToggleAlphaQwertyCommand { get; set; }
+        public ICommand ChooseDictionaryCommand { get; set; }
 
         private void ChooseDictionary(object obj)
         {
@@ -116,13 +121,6 @@ namespace Hangman.ViewModels
             _availaibleWordWithExplanation = FileHelpers.GetAwailableWordsWithExplanation();
             _availaibleWord = _availaibleWordWithExplanation.Keys.Select(x => x).ToList<string>();
         }
-
-        public ICommand NewGameCommand { get; set; }
-        public ICommand KeyClickedCommand { get; set; }
-        public ICommand HelpMeCommand { get; set; }
-        public ICommand ToggleAlphaQwertyCommand { get; set; }
-        public ICommand ChooseDictionaryCommand { get; set; }
-
 
         private void KeyClicked(object clickedButton)
         {
