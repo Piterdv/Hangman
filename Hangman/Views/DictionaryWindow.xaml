@@ -38,13 +38,13 @@
             Grid.Row="0"
             Grid.Column="1"
             Orientation="Horizontal">-->
-            <TextBox
-                x:Name="DictionaryNameTb"
-                Grid.Row="0"
-                Grid.Column="1"
-                Style="{StaticResource OrangeTBox}"
-                Text="SomethingDictionary" />
-            <!--<mycntr:PdvButtonBig
+        <TextBox
+            x:Name="DictionaryNameTb"
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource OrangeTBox}"
+            Text="SomethingDictionary" />
+        <!--<mycntr:PdvButtonBig
                 Grid.Row="0"
                 Grid.Column="1"
                 Width="70"
@@ -52,7 +52,7 @@
                 ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
                 ButtonBigText="‹This"
                 ToolTip="Click on me to create a new dictionary of name from text box." />-->
-            <!--<mycntr:PdvButtonBig
+        <!--<mycntr:PdvButtonBig
                 Grid.Row="0"
                 Grid.Column="1"
                 Width="100"
@@ -79,14 +79,17 @@
             Style="{StaticResource OrangeTBNormal}"
             Text="Word:" />
         <TextBox
+            x:Name="Word"
             Grid.Row="1"
             Grid.Column="1"
-            Style="{StaticResource OrangeTBox}" />
+            Style="{StaticResource OrangeTBox}"
+            Text="{Binding Word}" />
         <mycntr:PdvButtonBig
             Grid.Row="1"
             Grid.Column="2"
             ButtonBigClickCommand="{Binding AddNewWordToDictionaryCommand}"
             ButtonBigText="+Add word to dictionary"
+            IsEnabled="{Binding EnabledButton}"
             ToolTip="Click on me to add this word to this dictionary." />
 
 
@@ -96,11 +99,13 @@
             Style="{StaticResource OrangeTBNormal}"
             Text="Explanation:" />
         <TextBox
+            x:Name="Explanation"
             Grid.Row="2"
             Grid.Column="1"
             Height="465"
             AcceptsReturn="True"
             Style="{StaticResource OrangeTBox}"
+            Text="{Binding Explanation}"
             TextWrapping="Wrap" />
         <StackPanel
             Grid.Row="2"
@@ -111,12 +116,13 @@
                 Margin="0,0,0,10"
                 ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
                 ButtonBigText="√Save changes"
-                ToolTip="Click on me to add this explanation to this word." />
-            <mycntr:PdvButtonBig
+                IsEnabled="{Binding EnabledButton}"
+                ToolTip="Save you changes." />
+            <!--<mycntr:PdvButtonBig
                 Margin="0,0,0,10"
                 ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
                 ButtonBigText="#Copy all as new"
-                ToolTip="Click on me to add this example to this word." />
+                ToolTip="Click on me to add this example to this word." />-->
             <!--  ButtonBigClickCommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"  -->
             <!--  ButtonBigClickCommandParameter="{Binding ElementName=DWindow}"  -->
             <mycntr:PdvButtonBig
@@ -124,7 +130,7 @@
                 ButtonBigClickCommand="{Binding CloseCommand}"
                 ButtonBigClickCommandParameter="{Binding ElementName=DWindow}"
                 ButtonBigText="XClose"
-                ToolTip="Click on me to add this example to this word." />
+                ToolTip="Hide this window." />
         </StackPanel>
 
 
@@ -134,9 +140,11 @@
             Style="{StaticResource OrangeTBNormal}"
             Text="Speech part:" />
         <TextBox
+            x:Name="SpeechPart"
             Grid.Row="3"
             Grid.Column="1"
-            Style="{StaticResource OrangeTBox}" />
+            Style="{StaticResource OrangeTBox}"
+            Text="{Binding SpeechPart}" />
 
 
     </Grid>
