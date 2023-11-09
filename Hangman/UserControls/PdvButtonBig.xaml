@@ -15,6 +15,7 @@
             Height="40"
             Margin="-2"
             Command="{Binding ElementName=root, Path=ButtonBigClickCommand}"
+            CommandParameter="{Binding ElementName=root, Path=ButtonBigClickCommandParameter}"
             Style="{DynamicResource MetroButton}">
             <Grid>
                 <Grid.ColumnDefinitions>
