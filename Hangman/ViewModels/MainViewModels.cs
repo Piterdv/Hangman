@@ -116,11 +116,12 @@ namespace Hangman.ViewModels
 
         private void GetAvailableWordsFromFile()
         {
-            if (!FileHelpers.FileExists())
-                FileHelpers.CreateNewFile();
+            //TODO: zrobić to w następnej kolejności
+            //if (!FileHelpers.FileExists())
+            //    FileHelpers.CreateNewFile();
 
-            _availaibleWordWithExplanation = FileHelpers.GetAwailableWordsWithExplanation();
-            _availaibleWord = _availaibleWordWithExplanation.Keys.Select(x => x).ToList<string>();
+            //_availaibleWordWithExplanation = FileHelpers.GetAwailableWordsWithExplanation();
+            //_availaibleWord = _availaibleWordWithExplanation.Keys.Select(x => x).ToList<string>();
         }
 
         private void KeyClicked(object clickedButton)

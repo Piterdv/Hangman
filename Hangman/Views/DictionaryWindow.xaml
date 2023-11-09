@@ -34,15 +34,44 @@
 
         <!--  ROW 0  -->
         <TextBlock Style="{StaticResource OrangeTBNormal}" Text="Dictionary name:" />
-        <TextBox
+        <!--<StackPanel
             Grid.Row="0"
             Grid.Column="1"
-            Style="{StaticResource OrangeTBox}" />
+            Orientation="Horizontal">-->
+            <TextBox
+                x:Name="DictionaryNameTb"
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource OrangeTBox}"
+                Text="SomethingDictionary" />
+            <!--<mycntr:PdvButtonBig
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="70"
+                ButtonBigClickCommand="{Binding ChooseDictionaryCommand}"
+                ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
+                ButtonBigText="‹This"
+                ToolTip="Click on me to create a new dictionary of name from text box." />-->
+            <!--<mycntr:PdvButtonBig
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="100"
+                ButtonBigText="‹Save As"
+                ToolTip="Click on me to create a new dictionary of name from text box." />-->
+        <!--</StackPanel>-->
         <mycntr:PdvButtonBig
+            Grid.Row="0"
+            Grid.Column="2"
+            ButtonBigClickCommand="{Binding ChooseDictionaryCommand}"
+            ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
+            ButtonBigText="‹Choose this dictionary "
+            ToolTip="Click on me to choose or create a new dictionary of name from text box." />
+        <!--<mycntr:PdvButtonBig
             Grid.Column="2"
             ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
-            ButtonBigText="+Add new dictionary"
-            ToolTip="Click on me to add a new dictionary of name from text box." />
+            ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
+            ButtonBigText="+Create new dictionary"
+            ToolTip="Click on me to create a new dictionary of name from text box." />-->
 
         <!--  ROW I  -->
         <TextBlock
@@ -56,7 +85,7 @@
         <mycntr:PdvButtonBig
             Grid.Row="1"
             Grid.Column="2"
-            ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+            ButtonBigClickCommand="{Binding AddNewWordToDictionaryCommand}"
             ButtonBigText="+Add word to dictionary"
             ToolTip="Click on me to add this word to this dictionary." />
 
