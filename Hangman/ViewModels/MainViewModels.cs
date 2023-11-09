@@ -1,4 +1,5 @@
 ﻿using Hangman.Commands;
+using Hangman.Enums;
 using Hangman.Helpers;
 using Hangman.Views;
 using System;
