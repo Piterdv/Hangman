@@ -1,9 +1,12 @@
 ﻿using GetWordsAndExplanationFromWordnik.Models;
 using Hangman.Commands;
 using Hangman.Helpers;
+using Hangman.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,54 +22,109 @@ namespace Hangman.ViewModels
         private bool _enabledButton = false;
         private string _hidden = "Hidden";
         private string _word = string.Empty;
-        private string _explanation=string.Empty;
-        private string _speechPart=string.Empty;
+        private string _explanation = string.Empty;
+        private string _speechPart = string.Empty;
+        private List<WordEntity> _wordEntities = new List<WordEntity>();
 
         public DictionaryViewModels()
         {
             AddNewWordToDictionaryCommand = new RelayCommand(AddNewWordToDictionary);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
+            SaveDictionaryCommand = new RelayCommand(SaveDictionary);
+            FindWordCommand = new RelayCommand(FindWord);
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
         }
 
+        //find word in dictionary
+        private void FindWord(object obj)
+        {
+            string word = ((TextBox)obj).Text;
+
+            if (word == string.Empty)
+            {
+                MessageBox.Show("Insert word!");
+                return;
+            }
+
+            foreach (var w in _wordEntities)
+            {
+                if (w.Word == word)
+                {
+                    _word = w.Word;
+                    _explanation = w.Explanation;
+                    _speechPart = w.SpeechPart;
+                    OnPropertyChanged(nameof(Word));
+                    OnPropertyChanged(nameof(Explanation));
+                    OnPropertyChanged(nameof(SpeechPart));
+                    return;
+                }
+            }
+
+            MessageBox.Show("Word not found!");
+        }
+
+        private void SaveDictionary(object obj)
+        {
+            UpdateListOfWords();
+            FileHelpers.SaveWordsToFile(_dictionaryFullPath, _wordEntities);
+            MessageBox.Show("Dictionary saved!");
+        }
+
+        private void UpdateListOfWords()
+        {
+            var actwe = new WordEntity { Word = _word, Explanation = _explanation, SpeechPart = _speechPart };
+            var we = _wordEntities.Find(w => w.Word.Equals(_word));
+
+            if (actwe.Word == we.Word)
+            {
+                _wordEntities.Remove(we);
+            }
+
+            _wordEntities.Add(actwe);
+        }
+
+
+
         public ICommand AddNewWordToDictionaryCommand { get; set; }
         public ICommand ChooseDictionaryCommand { get; set; }
+        public ICommand SaveDictionaryCommand { get; set; }
+        public ICommand FindWordCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
         public string Word
         {
-            get{return _word;}
+            get { return _word; }
             set
             {
-                _word = value;
+                _word = value.Replace("|", "-");
                 OnPropertyChanged();
             }
         }
 
         public string Explanation
         {
-            get{return _explanation;}
+            get { return _explanation; }
             set
             {
-                _explanation = value;
+                _explanation = value.Replace("|", "-");
                 OnPropertyChanged();
             }
         }
 
         public string SpeechPart
         {
-            get{return _speechPart;}
+            get { return _speechPart; }
             set
             {
-                _speechPart = value;
+                _speechPart = value.Replace("|", "-");
                 OnPropertyChanged();
             }
         }
 
         public bool EnabledButton
         {
-            get{return _enabledButton;}
+            get { return _enabledButton; }
             set
             {
                 _enabledButton = value;
@@ -79,7 +137,7 @@ namespace Hangman.ViewModels
             get { return _hidden; }
             set
             {
-                _hidden= value;
+                _hidden = value;
                 OnPropertyChanged();
             }
         }
@@ -94,7 +152,7 @@ namespace Hangman.ViewModels
 
             _dictionary = ((TextBox)obj).Text;
 
-            CreateNewDictionary(_dictionary);
+            CreateOrChooseDictionary(_dictionary);
 
             EnabledButton = true;
             Hidden = "Visible";
@@ -102,13 +160,22 @@ namespace Hangman.ViewModels
 
         private void AddNewWordToDictionary(object obj)
         {
-            if(_word == string.Empty || _explanation == string.Empty || _speechPart == string.Empty)
+            if (_word == string.Empty || _explanation == string.Empty || _speechPart == string.Empty)
             {
                 MessageBox.Show("Insert all needed value!");
                 return;
-            }   
+            }
 
-            FileHelpers.AddWordToDictionary(_dictionaryFullPath, _word, _explanation, _speechPart);
+            foreach (var word in _wordEntities)
+            {
+                if (word.Word == _word)
+                {
+                    MessageBox.Show("Word exists in dictionary!\nIf you changed explanation or part of speech - click on \"Save changes\" button.");
+                    return;
+                }
+            }
+
+            _wordEntities.Add(new WordEntity { Word = _word, Explanation = _explanation, SpeechPart = _speechPart });
         }
 
         private void Close(object obj)
@@ -116,7 +183,7 @@ namespace Hangman.ViewModels
             (obj as Window)?.Close();
         }
 
-        private void CreateNewDictionary(string dictionary)
+        private void CreateOrChooseDictionary(string dictionary)
         {
             System.Media.SystemSounds.Beep.Play();
 
@@ -126,7 +193,7 @@ namespace Hangman.ViewModels
             }
 
             _dictionaryFullPath = Directory.GetCurrentDirectory() + "/" + _dirName + "/" + dictionary + ".txt";
-            FileHelpers.CreateNewFile(_dictionaryFullPath);
+            _wordEntities = FileHelpers.CreateOrChooseDictionary(_dictionaryFullPath);
         }
 
         //------------------implementacja interface

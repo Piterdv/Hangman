@@ -138,12 +138,12 @@
                     ButtonBigClickCommand="{Binding FindWordCommand}"
                     ButtonBigClickCommandParameter="{Binding ElementName=FindWordTb}"
                     ButtonBigText="FFind this word"
-                    ToolTip="Click on me to find word in this dictionary." />
+                    ToolTip="Click on me to find word in this dictionary."/>
             </StackPanel>
 
             <mycntr:PdvButtonBig
                 Margin="0,0,0,10"
-                ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
+                ButtonBigClickCommand="{Binding SaveDictionaryCommand}"
                 ButtonBigText="√Save changes"
                 IsEnabled="{Binding EnabledButton}"
                 ToolTip="Save you changes." />
