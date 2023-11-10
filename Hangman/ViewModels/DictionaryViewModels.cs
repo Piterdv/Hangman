@@ -17,9 +17,10 @@ namespace Hangman.ViewModels
         private string _dirName = "Dictionaries";
         private string _dictionary = string.Empty;
         private bool _enabledButton = false;
+        private string _hidden = "Hidden";
         private string _word = string.Empty;
-        private string _explanation;
-        private string _speechPart;
+        private string _explanation=string.Empty;
+        private string _speechPart=string.Empty;
 
         public DictionaryViewModels()
         {
@@ -73,6 +74,16 @@ namespace Hangman.ViewModels
             }
         }
 
+        public string Hidden
+        {
+            get { return _hidden; }
+            set
+            {
+                _hidden= value;
+                OnPropertyChanged();
+            }
+        }
+
         private void ChooseDictionary(object obj)
         {
             if (((TextBox)obj).Text == string.Empty)
@@ -86,6 +97,7 @@ namespace Hangman.ViewModels
             CreateNewDictionary(_dictionary);
 
             EnabledButton = true;
+            Hidden = "Visible";
         }
 
         private void AddNewWordToDictionary(object obj)

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Hangman.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace Hangman.Helpers
 {
@@ -19,12 +21,7 @@ namespace Hangman.Helpers
             return File.Exists(_filePathDictionary);
         }
 
-        /// <summary>
-        /// Create file with name and path, write first line with date and time and return path to file.
-        /// </summary>
-        /// <param name="fullPath"></param>
-        /// <param name="fileName"></param>
-        public static void CreateNewFile(string fullPath)
+        public static List<WordEntity> CreateNewFile(string fullPath)
         {
             string fileName = Path.GetFileName(fullPath);
             string dirPath = Path.GetDirectoryName(fullPath);
@@ -42,13 +39,52 @@ namespace Hangman.Helpers
             {
                 MessageBox.Show($"Dictionary {fileName[..^4]} was choosen.");
             }
+
+            return GetWordsFromDictionary(fullPath);
+        }
+
+        public static List<WordEntity> GetWordsFromDictionary(string fullPath)
+        {
+            var words = new List<WordEntity>();
+            var lines = File.ReadAllLines(fullPath);
+
+            foreach (var line in lines)
+            {
+                try
+                {
+                    var wordAndExplanation = line.Split(_separator);
+                    words.Add(new WordEntity
+                    {
+                        Word = wordAndExplanation[0].Trim(),
+                        Explanation = wordAndExplanation[1].Trim(),
+                        SpeechPart = wordAndExplanation[2].Trim()
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            return words;
+        }
+
+        public static void SaveWordsToFile(string fullPath, List<WordEntity> words)
+        {
+            File.WriteAllText(fullPath, string.Empty);
+
+            foreach (var word in words)
+            {
+                File.AppendAllText(fullPath, $"{word.Word}|{word.Explanation}|{word.SpeechPart}{Environment.NewLine}");
+            }
         }
 
         public static void AddWordToDictionary(string fullPath, string word, string explanation, string speechPart)
         {
-            File.AppendAllText(fullPath,Environment.NewLine + $"{word}|{explanation}|{speechPart}");
+            File.AppendAllText(fullPath, Environment.NewLine + $"{word}|{explanation}|{speechPart}");
         }
 
+        //TODO: delete this method
         static public Dictionary<string, string> GetAwailableWordsWithExplanation()
         {
             var dictionary = new Dictionary<string, string>();
@@ -73,6 +109,7 @@ namespace Hangman.Helpers
             return dictionary;
         }
 
+        //TODO: delete this method
         static public List<string> DeserializeSlownikToList()
         {
             string slownik = ReadDictionaryFromFile();

@@ -34,16 +34,12 @@
 
         <!--  ROW 0  -->
         <TextBlock Style="{StaticResource OrangeTBNormal}" Text="Dictionary name:" />
-        <!--<StackPanel
-            Grid.Row="0"
-            Grid.Column="1"
-            Orientation="Horizontal">-->
         <TextBox
             x:Name="DictionaryNameTb"
             Grid.Row="0"
             Grid.Column="1"
             Style="{StaticResource OrangeTBox}"
-            Text="SomethingDictionary" />
+            Text="DefaultDictionary" />
         <!--<mycntr:PdvButtonBig
                 Grid.Row="0"
                 Grid.Column="1"
@@ -111,7 +107,40 @@
             Grid.Row="2"
             Grid.RowSpan="2"
             Grid.Column="2"
+            HorizontalAlignment="Center"
             VerticalAlignment="Bottom">
+            <StackPanel
+                Height="440"
+                VerticalAlignment="Top"
+                Visibility="{Binding Hidden}">
+                <TextBlock
+                    Style="{StaticResource OrangeTB}"
+                    Text="You choosen:"
+                    TextAlignment="Center" />
+                <TextBlock
+                    Width="200"
+                    Margin="0,0,0,20"
+                    Style="{StaticResource OrangeTBNormal}"
+                    Text="{Binding ElementName=DictionaryNameTb, Path=Text}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Style="{StaticResource OrangeTB}"
+                    Text="Find word:"
+                    TextAlignment="Center" />
+                <TextBox
+                    x:Name="FindWordTb"
+                    Width="200"
+                    Style="{StaticResource OrangeTBox}"
+                    Text="{Binding FindWord}" />
+                <mycntr:PdvButtonBig
+                    Margin="0,0,0,10"
+                    ButtonBigClickCommand="{Binding FindWordCommand}"
+                    ButtonBigClickCommandParameter="{Binding ElementName=FindWordTb}"
+                    ButtonBigText="FFind this word"
+                    ToolTip="Click on me to find word in this dictionary." />
+            </StackPanel>
+
             <mycntr:PdvButtonBig
                 Margin="0,0,0,10"
                 ButtonBigClickCommand="{Binding CreateNewDictionaryCommand}"
