@@ -25,7 +25,7 @@ namespace Hangman.ViewModels
         private List<WordEntity> _wordEntities = new List<WordEntity>();
         private WordEntity _selectedWordEntity = new WordEntity();
         private string _dictionaryName = "DefaultDictionary";
-
+        private const char _separator = '|';
 
         public DictionaryViewModels()
         {
@@ -37,7 +37,14 @@ namespace Hangman.ViewModels
             EnabledButton = false;
         }
 
-        //find word in dictionary
+        public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
+        public ICommand AddNewWordToDictionaryCommand { get; set; }
+        public ICommand ChooseDictionaryCommand { get; set; }
+        public ICommand SaveDictionaryCommand { get; set; }
+        public ICommand FindWordCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
+
+
         private void FindWord(object obj)
         {
             string word = ((TextBox)obj).Text;
@@ -68,7 +75,7 @@ namespace Hangman.ViewModels
         private void SaveDictionary(object obj)
         {
             UpdateListOfWords();
-            FileHelpers.SaveWordsToFile(_dictionaryFullPath, _wordEntities);
+            FileHelpers.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
             MessageBox.Show("Dictionary saved!");
             ChooseDictionary(new TextBox { Text = _dictionary });
         }
@@ -86,19 +93,12 @@ namespace Hangman.ViewModels
             _wordEntities.Add(actwe);
         }
 
-        public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
-        public ICommand AddNewWordToDictionaryCommand { get; set; }
-        public ICommand ChooseDictionaryCommand { get; set; }
-        public ICommand SaveDictionaryCommand { get; set; }
-        public ICommand FindWordCommand { get; set; }
-        public ICommand CloseCommand { get; set; }
-
         public string Word
         {
             get { return _word; }
             set
             {
-                _word = value.Replace("|", "-");
+                _word = value.Replace(_separator, '-');
                 OnPropertyChanged();
             }
         }
@@ -113,7 +113,6 @@ namespace Hangman.ViewModels
                 EnabledButton = false;
             }
         }
-
 
         public string Explanation
         {
@@ -134,7 +133,6 @@ namespace Hangman.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public bool EnabledButton
         {
             get { return _enabledButton; }
@@ -219,7 +217,7 @@ namespace Hangman.ViewModels
                 dictionary = dictionary.Replace(c, '_');
             }
 
-            _dictionaryFullPath = Directory.GetCurrentDirectory() + "/" + _dirName + "/" + dictionary + ".txt";
+            _dictionaryFullPath = Directory.GetCurrentDirectory() + "/" + _dirName + "/" + dictionary + ".json";
             _wordEntities = FileHelpers.CreateOrChooseDictionary(_dictionaryFullPath);
         }
 
