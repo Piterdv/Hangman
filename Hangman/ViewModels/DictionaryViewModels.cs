@@ -23,7 +23,8 @@ namespace Hangman.ViewModels
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
         private List<WordEntity> _wordEntities = new List<WordEntity>();
-        private WordEntity _selectedWordEntity=new WordEntity();
+        private WordEntity _selectedWordEntity = new WordEntity();
+        private string _dictionaryName = "DefaultDictionary";
 
 
         public DictionaryViewModels()
@@ -69,6 +70,7 @@ namespace Hangman.ViewModels
             UpdateListOfWords();
             FileHelpers.SaveWordsToFile(_dictionaryFullPath, _wordEntities);
             MessageBox.Show("Dictionary saved!");
+            ChooseDictionary(new TextBox { Text = _dictionary });
         }
 
         private void UpdateListOfWords()
@@ -76,7 +78,7 @@ namespace Hangman.ViewModels
             var actwe = new WordEntity { Word = _word, Explanation = _explanation, SpeechPart = _speechPart };
             var we = _wordEntities.Find(w => w.Word.Equals(_word));
 
-            if (actwe.Word == we.Word)
+            if (we != null && actwe.Word == we.Word)
             {
                 _wordEntities.Remove(we);
             }
@@ -100,6 +102,18 @@ namespace Hangman.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string DictionaryName
+        {
+            get { return _dictionaryName; }
+            set
+            {
+                _dictionaryName = value;
+                OnPropertyChanged();
+                EnabledButton = false;
+            }
+        }
+
 
         public string Explanation
         {
@@ -144,10 +158,11 @@ namespace Hangman.ViewModels
         public WordEntity SelectedWordEntity
         {
             get { return _selectedWordEntity; }
-            set {
+            set
+            {
                 NotifyOfPropertyChange(() => SelectedWordEntity);
                 _selectedWordEntity = value;
-                FindWord(new TextBox { Text = _selectedWordEntity.Word });
+                if (_selectedWordEntity != null) FindWord(new TextBox { Text = _selectedWordEntity.Word });
             }
         }
 
