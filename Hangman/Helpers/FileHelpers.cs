@@ -37,7 +37,7 @@ namespace Hangman.Helpers
             }
             else
             {
-                MessageBox.Show($"Dictionary {fileName[..^4]} was choosen.");
+                //MessageBox.Show($"Dictionary {fileName[..^4]} was choosen.");
             }
 
             return GetWordsFromDictionary(fullPath);
@@ -66,7 +66,7 @@ namespace Hangman.Helpers
                 }
             }
 
-            return words;
+            return words.OrderBy(x => x.Word).ToList<WordEntity>();
         }
 
         public static void SaveWordsToFile(string fullPath, List<WordEntity> words)
