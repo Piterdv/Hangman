@@ -37,10 +37,12 @@
         <TextBlock Style="{StaticResource OrangeTBNormal}" Text="Dictionary name:" />
         <TextBox
             x:Name="DictionaryNameTb"
+            Text="{Binding DictionaryName}"
             Grid.Row="0"
             Grid.Column="1"
-            Style="{StaticResource OrangeTBox}"
-            Text="DefaultDictionary" />
+            Margin="0,0,0,8"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource OrangeTBox}"/>
         <mycntr:PdvButtonBig
             Grid.Row="0"
             Grid.Column="2"
@@ -96,7 +98,7 @@
             <StackPanel VerticalAlignment="Top">
                 <TextBlock
                     Style="{StaticResource OrangeTB}"
-                    Text="You choosen:"
+                    Text="Chosen dictionary:"
                     TextAlignment="Center" />
                 <TextBlock
                     Width="200"
