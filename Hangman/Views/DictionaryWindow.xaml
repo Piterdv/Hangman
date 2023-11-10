@@ -37,12 +37,12 @@
         <TextBlock Style="{StaticResource OrangeTBNormal}" Text="Dictionary name:" />
         <TextBox
             x:Name="DictionaryNameTb"
-            Text="{Binding DictionaryName}"
             Grid.Row="0"
             Grid.Column="1"
             Margin="0,0,0,8"
             VerticalAlignment="Bottom"
-            Style="{StaticResource OrangeTBox}"/>
+            Style="{StaticResource OrangeTBox}"
+            Text="{Binding DictionaryName}" />
         <mycntr:PdvButtonBig
             Grid.Row="0"
             Grid.Column="2"
@@ -102,7 +102,7 @@
                     TextAlignment="Center" />
                 <TextBlock
                     Width="200"
-                    Margin="0,0,0,20"
+                    Foreground="LightGreen"
                     Style="{StaticResource OrangeTBNormal}"
                     Text="{Binding Text, ElementName=DictionaryNameTb}"
                     TextAlignment="Center"
