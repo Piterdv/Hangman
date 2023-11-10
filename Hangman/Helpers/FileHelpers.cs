@@ -21,7 +21,7 @@ namespace Hangman.Helpers
             return File.Exists(_filePathDictionary);
         }
 
-        public static List<WordEntity> CreateNewFile(string fullPath)
+        public static List<WordEntity> CreateOrChooseDictionary(string fullPath)
         {
             string fileName = Path.GetFileName(fullPath);
             string dirPath = Path.GetDirectoryName(fullPath);
