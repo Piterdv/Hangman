@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Hangman.ViewModels
 {
-    public class DictionaryViewModels : INotifyPropertyChanged
+    public class DictionaryViewModels : Screen, INotifyPropertyChanged
     {
         private string _dictionaryFullPath = string.Empty;
         private string _dirName = "Dictionaries";
@@ -23,7 +23,8 @@ namespace Hangman.ViewModels
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
         private List<WordEntity> _wordEntities = new List<WordEntity>();
-        public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
+        private WordEntity _selectedWordEntity=new WordEntity();
+
 
         public DictionaryViewModels()
         {
@@ -83,8 +84,7 @@ namespace Hangman.ViewModels
             _wordEntities.Add(actwe);
         }
 
-
-
+        public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
         public ICommand AddNewWordToDictionaryCommand { get; set; }
         public ICommand ChooseDictionaryCommand { get; set; }
         public ICommand SaveDictionaryCommand { get; set; }
@@ -138,6 +138,16 @@ namespace Hangman.ViewModels
             {
                 _hidden = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public WordEntity SelectedWordEntity
+        {
+            get { return _selectedWordEntity; }
+            set {
+                NotifyOfPropertyChange(() => SelectedWordEntity);
+                _selectedWordEntity = value;
+                FindWord(new TextBox { Text = _selectedWordEntity.Word });
             }
         }
 
