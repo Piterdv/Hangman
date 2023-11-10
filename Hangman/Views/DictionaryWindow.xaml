@@ -125,7 +125,7 @@
                 Grid.Row="1"
                 ItemsSource="{Binding Words}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                SelectedItem="{Binding SelectedWord}">
+                SelectedItem="{Binding SelectedWordEntity}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Word}" />
