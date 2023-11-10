@@ -1,12 +1,10 @@
-﻿using GetWordsAndExplanationFromWordnik.Models;
+﻿using Caliburn.Micro;
 using Hangman.Commands;
 using Hangman.Helpers;
 using Hangman.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +23,7 @@ namespace Hangman.ViewModels
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
         private List<WordEntity> _wordEntities = new List<WordEntity>();
+        public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
 
         public DictionaryViewModels()
         {
@@ -142,7 +141,7 @@ namespace Hangman.ViewModels
             }
         }
 
-        private void ChooseDictionary(object obj)
+        public void ChooseDictionary(object obj)
         {
             if (((TextBox)obj).Text == string.Empty)
             {
@@ -156,6 +155,9 @@ namespace Hangman.ViewModels
 
             EnabledButton = true;
             Hidden = "Visible";
+
+            Words = new BindableCollection<WordEntity>(_wordEntities);
+            OnPropertyChanged(nameof(Words));
         }
 
         private void AddNewWordToDictionary(object obj)
