@@ -14,7 +14,6 @@ namespace Hangman.Helpers
     {
 
         private static string _filePathDictionary = "";
-        private const char _separator = '|';
 
         public static bool FileExists(string dirName, string fileName)
         {

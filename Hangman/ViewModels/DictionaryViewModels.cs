@@ -25,7 +25,6 @@ namespace Hangman.ViewModels
         private List<WordEntity> _wordEntities = new List<WordEntity>();
         private WordEntity _selectedWordEntity = new WordEntity();
         private string _dictionaryName = "DefaultDictionary";
-        private const char _separator = '|';
 
         public DictionaryViewModels()
         {
@@ -98,7 +97,7 @@ namespace Hangman.ViewModels
             get { return _word; }
             set
             {
-                _word = value.Replace(_separator, '-');
+                _word = value;
                 OnPropertyChanged();
             }
         }
@@ -168,7 +167,7 @@ namespace Hangman.ViewModels
         {
             if (((TextBox)obj).Text == string.Empty)
             {
-                MessageBox.Show("Wpisz nazwę słownika!");
+                MessageBox.Show("There's no dictionary name, write it:)");
                 return;
             }
 
