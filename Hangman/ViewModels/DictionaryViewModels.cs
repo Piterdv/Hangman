@@ -194,6 +194,7 @@ namespace Hangman.ViewModels
                 _selectedDictionaryEntity = value;
                 if (_selectedDictionaryEntity != null) DictionaryName = _selectedDictionaryEntity.DictionaryName;
                 HiddenDictionary = "Hidden";
+                if (value != null) ChooseDictionary(new TextBox { Text = _selectedDictionaryEntity.DictionaryName });
             }
         }
 
@@ -201,7 +202,7 @@ namespace Hangman.ViewModels
         {
             if (((TextBox)obj).Text == string.Empty)
             {
-                MessageBox.Show("There's no dictionary name, write it:)");
+                MessageBox.Show("There's no dictionary name, write it:)");s
                 return;
             }
 
