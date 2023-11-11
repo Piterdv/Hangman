@@ -2,6 +2,7 @@
 using Hangman.Commands;
 using Hangman.Helpers;
 using Hangman.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -14,8 +15,9 @@ namespace Hangman.ViewModels
 {
     public class DictionaryViewModels : Screen, INotifyPropertyChanged
     {
-        private string _dictionaryFullPath = string.Empty;
-        private string _dirName = "Dictionaries";
+        private static string _dirName = "Dictionaries";
+        private static string _dictionaryDirPath = Directory.GetCurrentDirectory() + "\\" + _dirName + "\\";
+        private static string _dictionaryFullPath = "";
         private string _dictionary = string.Empty;
         private bool _enabledButton = false;
         private string _hidden = "Hidden";
@@ -23,22 +25,29 @@ namespace Hangman.ViewModels
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
         private List<WordEntity> _wordEntities = new List<WordEntity>();
+        private List<DictionaryEntity> _dictionaries = new List<DictionaryEntity>();
         private WordEntity _selectedWordEntity = new WordEntity();
         private string _dictionaryName = "DefaultDictionary";
+        private string _hiddenDictionary = "Hidden";
+        private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
 
         public DictionaryViewModels()
         {
             AddNewWordToDictionaryCommand = new RelayCommand(AddNewWordToDictionary);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
+            ShowAllDictonariesCommand = new RelayCommand(ShowAllDictonaries);
             SaveDictionaryCommand = new RelayCommand(SaveDictionary);
             FindWordCommand = new RelayCommand(FindWord);
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
         }
 
+
         public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
+        public BindableCollection<DictionaryEntity> Dictionaries { get; set; } = new BindableCollection<DictionaryEntity>();
         public ICommand AddNewWordToDictionaryCommand { get; set; }
         public ICommand ChooseDictionaryCommand { get; set; }
+        public ICommand ShowAllDictonariesCommand { get; set; }
         public ICommand SaveDictionaryCommand { get; set; }
         public ICommand FindWordCommand { get; set; }
         public ICommand CloseCommand { get; set; }
@@ -152,6 +161,16 @@ namespace Hangman.ViewModels
             }
         }
 
+        public string HiddenDictionary
+        {
+            get { return _hiddenDictionary; }
+            set
+            {
+                _hiddenDictionary = value;
+                OnPropertyChanged();
+            }
+        }
+
         public WordEntity SelectedWordEntity
         {
             get { return _selectedWordEntity; }
@@ -160,6 +179,21 @@ namespace Hangman.ViewModels
                 NotifyOfPropertyChange(() => SelectedWordEntity);
                 _selectedWordEntity = value;
                 if (_selectedWordEntity != null) FindWord(new TextBox { Text = _selectedWordEntity.Word });
+            }
+        }
+
+        public DictionaryEntity SelectedDictionaryEntity
+        {
+            get
+            {
+                return _selectedDictionaryEntity;
+            }
+            set
+            {
+                NotifyOfPropertyChange(() => SelectedDictionaryEntity);
+                _selectedDictionaryEntity = value;
+                if (_selectedDictionaryEntity != null) DictionaryName = _selectedDictionaryEntity.DictionaryName;
+                HiddenDictionary = "Hidden";
             }
         }
 
@@ -180,6 +214,16 @@ namespace Hangman.ViewModels
 
             Words = new BindableCollection<WordEntity>(_wordEntities);
             OnPropertyChanged(nameof(Words));
+        }
+
+        private void ShowAllDictonaries(object obj)
+        {
+            HiddenDictionary = "Visible";
+
+            _dictionaries = FileHelpers.GetDictionaryFileToList(_dictionaryDirPath);
+
+            Dictionaries = new BindableCollection<DictionaryEntity>(_dictionaries);
+            OnPropertyChanged(nameof(Dictionaries));
         }
 
         private void AddNewWordToDictionary(object obj)
@@ -216,9 +260,10 @@ namespace Hangman.ViewModels
                 dictionary = dictionary.Replace(c, '_');
             }
 
-            _dictionaryFullPath = Directory.GetCurrentDirectory() + "/" + _dirName + "/" + dictionary + ".json";
+            _dictionaryFullPath = _dictionaryDirPath + dictionary + ".json";
             _wordEntities = FileHelpers.CreateOrChooseDictionary(_dictionaryFullPath);
         }
+
 
         //------------------implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;

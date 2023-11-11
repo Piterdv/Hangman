@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 
@@ -52,7 +50,7 @@ namespace Hangman.Helpers
 
             words = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WordEntity>>(json);
 
-            return words.OrderBy(x => x.Word).ToList<WordEntity>();
+            return words.Where(x => x.Word != "").OrderBy(x => x.Word).ToList<WordEntity>();
         }
 
         public static void SaveDictionaryToJsonFile(string fullPath, List<WordEntity> words)
@@ -62,7 +60,7 @@ namespace Hangman.Helpers
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(words);
 
             File.AppendAllText(fullPath, json);
-            
+
         }
 
         public static void AddWordToDictionary(string fullPath, string word, string explanation, string speechPart)
@@ -74,5 +72,26 @@ namespace Hangman.Helpers
         {
             return File.ReadAllText(_filePathDictionary);
         }
+
+        public static List<DictionaryEntity> GetDictionaryFileToList(string fullPath)
+        {
+            string dirName = Path.GetDirectoryName(fullPath);
+
+            var files = Directory.GetFiles(dirName, "*.json");
+            var list = new List<DictionaryEntity>();
+
+            foreach (var file in files)
+            {
+                list.Add(new DictionaryEntity
+                {
+                    DictionaryName = Path.GetFileNameWithoutExtension(file),
+                    DateCreated = File.GetCreationTime(file).ToString("yyyy-MM-dd HH:mm")
+                });
+            }
+
+            return list;
+        }
+
+
     }
 }
