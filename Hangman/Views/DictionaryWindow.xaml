@@ -35,14 +35,37 @@
 
         <!--  ROW 0  -->
         <TextBlock Style="{StaticResource OrangeTBNormal}" Text="Dictionary name:" />
-        <TextBox
-            x:Name="DictionaryNameTb"
-            Grid.Row="0"
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox
+                x:Name="DictionaryNameTb"
+                Margin="0,0,0,8"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource OrangeTBox}"
+                Text="{Binding DictionaryName}" />
+            <mycntr:PdvButtonBig
+                Grid.Column="1"
+                ButtonBigClickCommand="{Binding ShowAllDictonariesCommand}"
+                ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
+                ButtonBigText="≡Show all dictionaries"
+                ToolTip="Click on me to show all available dictionaries." />
+        </Grid>
+        <!--<ListBox
+            Grid.Row="1"
+            Grid.RowSpan="3"
             Grid.Column="1"
-            Margin="0,0,0,8"
-            VerticalAlignment="Bottom"
-            Style="{StaticResource OrangeTBox}"
-            Text="{Binding DictionaryName}" />
+            ItemsSource="{Binding Words}"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectedItem="{Binding SelectedWordEntity}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Word}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
         <mycntr:PdvButtonBig
             Grid.Row="0"
             Grid.Column="2"
@@ -85,7 +108,6 @@
             Style="{StaticResource OrangeTBox}"
             Text="{Binding Explanation}"
             TextWrapping="Wrap" />
-
         <Grid
             Grid.Row="2"
             Grid.Column="2"
@@ -161,6 +183,35 @@
             ButtonBigText="XClose"
             ToolTip="Hide this window." />
 
+        <!--  NA GORĘ - ZORDER:)  -->
+        <ListBox
+            Grid.Row="1"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            FontSize="20"
+            ItemsSource="{Binding Dictionaries}"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectedItem="{Binding SelectedDictionaryEntity}"
+            Visibility="{Binding HiddenDictionary}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            FontWeight="ExtraLight"
+                            Foreground="Gray"
+                            Text="{Binding DateCreated}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            Text="{Binding DictionaryName}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </mah:MetroWindow>
