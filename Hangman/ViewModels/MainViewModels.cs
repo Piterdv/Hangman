@@ -42,7 +42,7 @@ namespace Hangman.ViewModels
         private bool _alphabetBtnEnable = true;
         private int _increment = 0;
         private bool _newGameIsEnabled = true;
-        private string _windowTitle = AppSettings.AppName;
+        private string _windowTitle = AppSettings.AppName + " - I GET WORDS FROM INTERNET";
         private bool _internetOrLocalSource = true;
         private static string _tmpWindowTitle = string.Empty;
 

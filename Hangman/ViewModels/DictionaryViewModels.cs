@@ -270,9 +270,9 @@ namespace Hangman.ViewModels
 
             foreach (var word in _wordEntities)
             {
-                if (word.Word == _word)
+                if (word.Word.ToLower() == _word.ToLower())
                 {
-                    MessageBox.Show("This word already exists in dictionary!\n\nIf you only want to change explanation or part of speech - click on \"Save changes\" button after your modifications.");
+                    MessageBox.Show($"{word.Word.ToUpper()} already exists in dictionary!\n\nIf you only want to change explanation or part of speech - click on \"Save changes\" button after your modifications.");
                     return;
                 }
             }
