@@ -33,7 +33,7 @@ namespace Hangman.ViewModels
         private string _dictionaryName = ""; //"DefaultDictionary";
         private string _hiddenDictionary = "Hidden";
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
-        private Brush _choosenDictionaryColor=Brushes.LightGreen;
+        private Brush _choosenDictionaryColor = Brushes.LightGreen;
         private readonly MainViewModels _mvm;
 
         public DictionaryViewModels(WordEntity? de, MainViewModels mvm)
@@ -46,7 +46,8 @@ namespace Hangman.ViewModels
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
 
-            if(de != null) {
+            if (de != null)
+            {
                 _word = de.Word;
                 _explanation = de.Explanation;
                 _speechPart = de.SpeechPart;
@@ -223,7 +224,8 @@ namespace Hangman.ViewModels
                 if (value != null)
                 {
                     ChooseDictionary(new TextBox { Text = _selectedDictionaryEntity.DictionaryName });
-                    _mvm.WindowTitle = AppSettings.AppName + " (dictionary: " +  _selectedDictionaryEntity.DictionaryName + "| words#: " + _selectedDictionaryEntity.NumberOfWords + ")";
+                    if (_mvm != null)
+                        _mvm.WindowTitle = AppSettings.AppName + " (dictionary: " + _selectedDictionaryEntity.DictionaryName + "| words#: " + _selectedDictionaryEntity.NumberOfWords + ")";
                 }
 
             }

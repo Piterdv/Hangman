@@ -137,7 +137,7 @@
                     IsEnabled="{Binding NewGameIsEnabled}"
                     ToolTip="Add this word to dictionary." />
                 <mycntr:PdvButton
-                    ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonClickCommand="{Binding EditDictionaryCommand}"
                     ButtonText="EDIT"
                     ToolTip="Edit dictionary." />
                 <mycntr:PdvButton
@@ -376,11 +376,10 @@
                 </Grid>
             </Border>
         </Grid>
-        <!--Margin="10,134,10,0"-->
+        <!--  Margin="10,134,10,0"  -->
         <Image
             Grid.Row="1"
             Grid.Column="2"
-            
             VerticalAlignment="Top"
             Source="{Binding HangmanPicture}" />
     </Grid>
