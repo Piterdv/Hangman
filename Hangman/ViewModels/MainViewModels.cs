@@ -42,6 +42,7 @@ namespace Hangman.ViewModels
         private bool _alphabetBtnEnable = true;
         private int _increment = 0;
         private bool _newGameIsEnabled = true;
+        private string _windowTitle = AppSettings.AppName;
 
         public MainViewModels()
         {
@@ -64,7 +65,7 @@ namespace Hangman.ViewModels
 
         private void ChooseDictionary(object obj)
         {
-            DictionaryWindow dictionaryWindow = new DictionaryWindow(null);
+            DictionaryWindow dictionaryWindow = new DictionaryWindow(null, this);
             dictionaryWindow.ShowDialog();
         }
 
@@ -77,7 +78,7 @@ namespace Hangman.ViewModels
                 SpeechPart = _partOfSpeach
             };
 
-            DictionaryWindow dictionaryWindow = new DictionaryWindow(we);
+            DictionaryWindow dictionaryWindow = new DictionaryWindow(we, this);
             dictionaryWindow.ShowDialog();
         }
 
@@ -323,6 +324,16 @@ namespace Hangman.ViewModels
             foreach (StackPanel stackPanel in stackPannelsKeyboard)
                 foreach (Button button in stackPanel.Children)
                     button.IsEnabled = true;
+        }
+
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set
+            {
+                _windowTitle = value;
+                OnPropertyChanged();
+            }
         }
 
         public string HelpMeValue
