@@ -1,6 +1,7 @@
 ﻿using Hangman.Commands;
 using Hangman.Enums;
 using Hangman.Helpers;
+using Hangman.Models;
 using Hangman.Views;
 using System;
 using System.Collections.Generic;
@@ -60,9 +61,14 @@ namespace Hangman.ViewModels
 
         private void ChooseDictionary(object obj)
         {
+            WordEntity we = new WordEntity
+            {
+                Word = _guessingWord,
+                Explanation = _wordExplanation,
+                SpeechPart = _partOfSpeach
+            };
 
-            //System.Media.SystemSounds.Beep.Play();
-            DictionaryWindow dictionaryWindow = new DictionaryWindow();
+            DictionaryWindow dictionaryWindow = new DictionaryWindow(we);
             dictionaryWindow.ShowDialog();
         }
 

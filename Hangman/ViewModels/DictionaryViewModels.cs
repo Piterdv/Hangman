@@ -5,6 +5,7 @@ using Hangman.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.DirectoryServices;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -34,7 +35,7 @@ namespace Hangman.ViewModels
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
         private Brush _choosenDictionaryColor=Brushes.LightGreen;
 
-        public DictionaryViewModels()
+        public DictionaryViewModels(WordEntity de)
         {
             AddNewWordToDictionaryCommand = new RelayCommand(AddNewWordToDictionary);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
@@ -43,6 +44,10 @@ namespace Hangman.ViewModels
             FindWordCommand = new RelayCommand(FindWord);
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
+
+            _word = de.Word;
+            _explanation = de.Explanation;
+            _speechPart = de.SpeechPart;
         }
 
 
