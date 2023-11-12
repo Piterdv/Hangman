@@ -5,7 +5,7 @@ namespace Hangman.Views
 {
     public partial class DictionaryWindow
     {
-        public DictionaryWindow(WordEntity we)
+        public DictionaryWindow(WordEntity? we)
         {
             InitializeComponent();
             DataContext = new DictionaryViewModels(we);

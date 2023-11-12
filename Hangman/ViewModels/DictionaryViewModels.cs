@@ -35,7 +35,7 @@ namespace Hangman.ViewModels
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
         private Brush _choosenDictionaryColor=Brushes.LightGreen;
 
-        public DictionaryViewModels(WordEntity de)
+        public DictionaryViewModels(WordEntity? de)
         {
             AddNewWordToDictionaryCommand = new RelayCommand(AddNewWordToDictionary);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
@@ -45,9 +45,12 @@ namespace Hangman.ViewModels
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
 
-            _word = de.Word;
-            _explanation = de.Explanation;
-            _speechPart = de.SpeechPart;
+            if(de != null) {
+                _word = de.Word;
+                _explanation = de.Explanation;
+                _speechPart = de.SpeechPart;
+            }
+
         }
 
 
@@ -117,6 +120,7 @@ namespace Hangman.ViewModels
             {
                 _word = value;
                 OnPropertyChanged();
+                ChoosenDictionaryColor = Brushes.Red;
             }
         }
 
@@ -138,6 +142,7 @@ namespace Hangman.ViewModels
             {
                 _explanation = value.Replace("|", "-");
                 OnPropertyChanged();
+                ChoosenDictionaryColor = Brushes.Red;
             }
         }
 
@@ -148,6 +153,7 @@ namespace Hangman.ViewModels
             {
                 _speechPart = value.Replace("|", "-");
                 OnPropertyChanged();
+                ChoosenDictionaryColor = Brushes.Red;
             }
         }
         public bool EnabledButton

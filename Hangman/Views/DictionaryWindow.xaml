@@ -184,15 +184,19 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="Consolas"
+                            FontSize="15"
                             FontWeight="ExtraLight"
                             Foreground="Gray"
                             Text="{Binding DateCreated}" />
                         <TextBlock
                             Grid.Column="1"
+                            Margin="0,-3,0,0"
                             HorizontalAlignment="Left"
                             Text="{Binding DictionaryName}" />
                     </Grid>

@@ -49,6 +49,7 @@ namespace Hangman.ViewModels
             HelpMeCommand = new RelayCommand(HelpMe);
             ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaQwerty);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
+            AddWordToDictionariesCommand = new RelayCommand(AddWordToDictionaries);
 
             //GetAvailableWordsFromFile();
         }
@@ -58,8 +59,15 @@ namespace Hangman.ViewModels
         public ICommand HelpMeCommand { get; set; }
         public ICommand ToggleAlphaQwertyCommand { get; set; }
         public ICommand ChooseDictionaryCommand { get; set; }
+        public ICommand AddWordToDictionariesCommand { get; set; }
 
         private void ChooseDictionary(object obj)
+        {
+            DictionaryWindow dictionaryWindow = new DictionaryWindow(null);
+            dictionaryWindow.ShowDialog();
+        }
+
+        private void AddWordToDictionaries(object obj)
         {
             WordEntity we = new WordEntity
             {

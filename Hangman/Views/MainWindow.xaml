@@ -124,7 +124,7 @@
                     Content="Internet"
                     Style="{StaticResource ToggleButtonV}" />
                 <mycntr:PdvButton
-                    ButtonClickCommand="{Binding ChooseDictionaryCommand}"
+                    ButtonClickCommand="{Binding AddWordToDictionariesCommand}"
                     ButtonClickCommandParameter="{Binding ElementName=Keyboard}"
                     ButtonText="+ADD"
                     ToolTip="Add this word to dictionary." />
