@@ -43,6 +43,7 @@ namespace Hangman.ViewModels
         private int _increment = 0;
         private bool _newGameIsEnabled = true;
         private string _windowTitle = AppSettings.AppName;
+        private bool _internetOrLocalSource=true;
 
         public MainViewModels()
         {
@@ -413,6 +414,15 @@ namespace Hangman.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public bool InternetOrLocalSource
+        {
+            get { return _internetOrLocalSource; }
+            set { _internetOrLocalSource = value;
+                OnPropertyChanged();
+            }
+        }
+            
 
 
         public ObservableCollection<char> GuessingLetters
