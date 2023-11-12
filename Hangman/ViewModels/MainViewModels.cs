@@ -43,7 +43,8 @@ namespace Hangman.ViewModels
         private int _increment = 0;
         private bool _newGameIsEnabled = true;
         private string _windowTitle = AppSettings.AppName;
-        private bool _internetOrLocalSource=true;
+        private bool _internetOrLocalSource = true;
+        private static string _tmpWindowTitle = string.Empty;
 
         public MainViewModels()
         {
@@ -54,8 +55,24 @@ namespace Hangman.ViewModels
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
             EditDictionaryCommand = new RelayCommand(EditDictionary);
             AddWordToDictionariesCommand = new RelayCommand(AddWordToDictionaries);
+            InternetOrLocalDictionaryCommand = new RelayCommand(InternetOrLocalDictionary);
+        }
 
-            //GetAvailableWordsFromFile();
+        private void InternetOrLocalDictionary(object obj)
+        {
+            if (_windowTitle.Contains("(")) _tmpWindowTitle = _windowTitle;
+
+            if (!_internetOrLocalSource)
+            {
+                if (_tmpWindowTitle != string.Empty)
+                    WindowTitle = _tmpWindowTitle;
+                else
+                    WindowTitle = AppSettings.AppName + " - CHOOSE DICTIONARY!"; ;
+            }
+            else
+            {
+                WindowTitle = AppSettings.AppName + " - i get words from internet";
+            }
         }
 
         public ICommand NewGameCommand { get; set; }
@@ -64,6 +81,7 @@ namespace Hangman.ViewModels
         public ICommand ToggleAlphaQwertyCommand { get; set; }
         public ICommand ChooseDictionaryCommand { get; set; }
         public ICommand EditDictionaryCommand { get; set; }
+        public ICommand InternetOrLocalDictionaryCommand { get; set; }
         public ICommand AddWordToDictionariesCommand { get; set; }
 
         private void EditDictionary(object obj)
@@ -237,14 +255,27 @@ namespace Hangman.ViewModels
             }
         }
 
-        //TODO: wordnik || dictionaries:)
         private void NewRandomWord()
         {
-            //var randomIx = random.Next(_availaibleWord.Count);
-            //_guessingWord = _availaibleWord[randomIx];
-            //_wordExplanation = _availaibleWordWithExplanation[_guessingWord];
+            if (!_internetOrLocalSource)
+            {
+                GetWordAndExplFromDictionaries();
+            }
+            else
+            {
+                GetWordAndExplFromWordnik();
+            }
+        }
 
-            GetWordAndExplFromWordnik();
+        private void GetWordAndExplFromDictionaries()
+        {
+            //get random WordEntity from LocalDictionary
+            var randomIx = random.Next(LocalDictionary.Dictionary.Count);
+
+            _guessingWord = LocalDictionary.Dictionary[randomIx].Word.ToUpper();
+            _wordExplanation = LocalDictionary.Dictionary[randomIx].Explanation;
+            _partOfSpeach = LocalDictionary.Dictionary[randomIx].SpeechPart;
+
         }
 
         private void GetWordAndExplFromWordnik()
@@ -418,11 +449,13 @@ namespace Hangman.ViewModels
         public bool InternetOrLocalSource
         {
             get { return _internetOrLocalSource; }
-            set { _internetOrLocalSource = value;
+            set
+            {
+                _internetOrLocalSource = value;
                 OnPropertyChanged();
             }
         }
-            
+
 
 
         public ObservableCollection<char> GuessingLetters

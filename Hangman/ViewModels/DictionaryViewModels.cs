@@ -285,6 +285,7 @@ namespace Hangman.ViewModels
 
         private void Close(object obj)
         {
+            LocalDictionary.Dictionary = _wordEntities;
             (obj as Window)?.Close();
         }
 
