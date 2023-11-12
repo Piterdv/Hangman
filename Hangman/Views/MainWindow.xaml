@@ -129,7 +129,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Content="Internet"
-                    Style="{StaticResource ToggleButtonV}" />
+                    Style="{StaticResource ToggleButtonV}" 
+                    IsChecked="{Binding InternetOrLocalSource}"/>
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding AddWordToDictionariesCommand}"
                     ButtonClickCommandParameter="{Binding ElementName=Keyboard}"
