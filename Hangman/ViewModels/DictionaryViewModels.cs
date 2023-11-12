@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Hangman.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Hangman.ViewModels
         private string _dictionaryName = "DefaultDictionary";
         private string _hiddenDictionary = "Hidden";
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
+        private Brush _choosenDictionaryColor=Brushes.LightGreen;
 
         public DictionaryViewModels()
         {
@@ -87,6 +89,7 @@ namespace Hangman.ViewModels
             FileHelpers.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
             //MessageBox.Show("Dictionary saved!");
             ChooseDictionary(new TextBox { Text = _dictionary });
+            ChoosenDictionaryColor = Brushes.LightGreen;
         }
 
         private void UpdateListOfWords()
@@ -172,6 +175,16 @@ namespace Hangman.ViewModels
             }
         }
 
+        public Brush ChoosenDictionaryColor
+        {
+            get { return _choosenDictionaryColor; }
+            set
+            {
+                _choosenDictionaryColor = value;
+                OnPropertyChanged();
+            }
+        }
+
         public WordEntity SelectedWordEntity
         {
             get { return _selectedWordEntity; }
@@ -247,6 +260,8 @@ namespace Hangman.ViewModels
 
             _wordEntities.Add(new WordEntity { Word = _word, Explanation = _explanation, SpeechPart = _speechPart });
             SaveDictionary(new TextBox { Text = _dictionary });
+
+            ChoosenDictionaryColor = Brushes.Red;
         }
 
         private void Close(object obj)
