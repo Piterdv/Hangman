@@ -21,6 +21,7 @@ namespace Hangman.ViewModels
         private string _dictionary = string.Empty;
         private bool _enabledButton = false;
         private string _hidden = "Hidden";
+        //TODO: zrobić zmienną _wordEntities zamiast _word, _explanation, _speechPart
         private string _word = string.Empty;
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
@@ -84,7 +85,7 @@ namespace Hangman.ViewModels
         {
             UpdateListOfWords();
             FileHelpers.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
-            MessageBox.Show("Dictionary saved!");
+            //MessageBox.Show("Dictionary saved!");
             ChooseDictionary(new TextBox { Text = _dictionary });
         }
 
@@ -202,7 +203,7 @@ namespace Hangman.ViewModels
         {
             if (((TextBox)obj).Text == string.Empty)
             {
-                MessageBox.Show("There's no dictionary name, write it:)");s
+                MessageBox.Show("There's no dictionary name, write it:)");
                 return;
             }
 
@@ -219,12 +220,12 @@ namespace Hangman.ViewModels
 
         private void ShowAllDictonaries(object obj)
         {
-            HiddenDictionary = "Visible";
-
-            _dictionaries = FileHelpers.GetDictionaryFileToList(_dictionaryDirPath);
+            _dictionaries = FileHelpers.GetDictionaryFileNameToList(_dictionaryDirPath);
 
             Dictionaries = new BindableCollection<DictionaryEntity>(_dictionaries);
             OnPropertyChanged(nameof(Dictionaries));
+
+            HiddenDictionary = "Visible";
         }
 
         private void AddNewWordToDictionary(object obj)
@@ -239,12 +240,13 @@ namespace Hangman.ViewModels
             {
                 if (word.Word == _word)
                 {
-                    MessageBox.Show("Word exists in dictionary!\nIf you changed explanation or part of speech - click on \"Save changes\" button.");
+                    MessageBox.Show("This word already exists in dictionary!\n\nIf you only want to change explanation or part of speech - click on \"Save changes\" button after your modifications.");
                     return;
                 }
             }
 
             _wordEntities.Add(new WordEntity { Word = _word, Explanation = _explanation, SpeechPart = _speechPart });
+            SaveDictionary(new TextBox { Text = _dictionary });
         }
 
         private void Close(object obj)

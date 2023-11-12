@@ -73,7 +73,7 @@ namespace Hangman.Helpers
             return File.ReadAllText(_filePathDictionary);
         }
 
-        public static List<DictionaryEntity> GetDictionaryFileToList(string fullPath)
+        public static List<DictionaryEntity> GetDictionaryFileNameToList(string fullPath)
         {
             string dirName = Path.GetDirectoryName(fullPath);
 
