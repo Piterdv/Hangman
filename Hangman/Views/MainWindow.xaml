@@ -56,6 +56,7 @@
                 Command="{Binding NewGameCommand}"
                 CommandParameter="{Binding ElementName=Keyboard}"
                 Content="New Game"
+                IsEnabled="{Binding NewGameIsEnabled}"
                 Style="{StaticResource BaseButton}" />
             <!--<mycntr:PdvButtonBig></mycntr:PdvButtonBig>-->
 
@@ -127,6 +128,7 @@
                     ButtonClickCommand="{Binding AddWordToDictionariesCommand}"
                     ButtonClickCommandParameter="{Binding ElementName=Keyboard}"
                     ButtonText="+ADD"
+                    IsEnabled="{Binding NewGameIsEnabled}"
                     ToolTip="Add this word to dictionary." />
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
