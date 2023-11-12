@@ -75,6 +75,9 @@ namespace Hangman.Helpers
 
         public static List<DictionaryEntity> GetDictionaryFileNameToList(string fullPath)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            
             string dirName = Path.GetDirectoryName(fullPath);
 
             var files = Directory.GetFiles(dirName, "*.json");

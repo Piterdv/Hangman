@@ -254,6 +254,12 @@ namespace Hangman.ViewModels
         {
             _dictionaries = FileHelpers.GetDictionaryFileNameToList(_dictionaryDirPath);
 
+            if(_dictionaries.Count == 0)
+            {
+                MessageBox.Show("There's no dictionaries!\nYou have to write name of dictionary (like Animals or Verbs or what you want) in field \"Dictionary name:\" and then click on button \"‹Choose this dictionary\" to create it.");
+                return;
+            }
+
             Dictionaries = new BindableCollection<DictionaryEntity>(_dictionaries);
             OnPropertyChanged(nameof(Dictionaries));
 
