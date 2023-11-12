@@ -85,7 +85,8 @@ namespace Hangman.Helpers
                 list.Add(new DictionaryEntity
                 {
                     DictionaryName = Path.GetFileNameWithoutExtension(file),
-                    DateCreated = File.GetCreationTime(file).ToString("yyyy-MM-dd HH:mm")
+                    DateCreated = File.GetCreationTime(file).ToString("yyyy-MM-dd HH:mm"),
+                    NumberOfWords = GetWordsFromJsonFile(file).Count
                 });
             }
 

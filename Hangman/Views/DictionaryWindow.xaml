@@ -184,8 +184,9 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="160" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -193,12 +194,23 @@
                             FontSize="15"
                             FontWeight="ExtraLight"
                             Foreground="Gray"
-                            Text="{Binding DateCreated}" />
+                            Text="{Binding DateCreated}"
+                            ToolTip="Created date" />
                         <TextBlock
                             Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontFamily="Consolas"
+                            FontSize="15"
+                            FontWeight="ExtraLight"
+                            Foreground="DarkOrange"
+                            Text="{Binding NumberOfWords}"
+                            ToolTip="Number of words" />
+                        <TextBlock
+                            Grid.Column="2"
                             Margin="0,-3,0,0"
                             HorizontalAlignment="Left"
                             Text="{Binding DictionaryName}" />
+
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

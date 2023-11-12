@@ -10,7 +10,7 @@
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mycntr="clr-namespace:Hangman.UserControls"
-    Title="Wisielec"
+    Title="{Binding WindowTitle}"
     Width="1030"
     Height="700"
     ResizeMode="NoResize"
@@ -36,7 +36,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="361*" />
+            <ColumnDefinition Width="649*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -47,7 +48,7 @@
 
         <!--  I WIERSZ  -->
 
-        <Grid>
+        <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -81,7 +82,8 @@
         <!--  II WIERSZ  -->
         <ScrollViewer
             Grid.Row="1"
-            Margin="5"
+            Grid.ColumnSpan="2"
+            Margin="5,5,5,5"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto">
             <ItemsControl Background="{Binding BackgroundColor}" ItemsSource="{Binding GuessingLetters}">
@@ -102,7 +104,11 @@
         </ScrollViewer>
 
         <!--  III ROW  -->
-        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="3"
+            Margin="0,307,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="Auto" />
@@ -370,11 +376,12 @@
                 </Grid>
             </Border>
         </Grid>
+        <!--Margin="10,134,10,0"-->
         <Image
-            Grid.RowSpan="2"
-            Grid.Column="1"
-            Margin="10,40,10,10"
-            VerticalAlignment="Center"
+            Grid.Row="1"
+            Grid.Column="2"
+            
+            VerticalAlignment="Top"
             Source="{Binding HangmanPicture}" />
     </Grid>
 </mah:MetroWindow>
