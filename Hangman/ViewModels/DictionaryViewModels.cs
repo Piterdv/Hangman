@@ -76,7 +76,7 @@ namespace Hangman.ViewModels
 
             foreach (var w in _wordEntities)
             {
-                if (w.Word == word)
+                if (w.Word.ToLower() == word.ToLower())
                 {
                     _word = w.Word;
                     _explanation = w.Explanation;

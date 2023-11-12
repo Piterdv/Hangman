@@ -41,6 +41,7 @@ namespace Hangman.ViewModels
         private int _howManyWordsInHelp;
         private bool _alphabetBtnEnable = true;
         private int _increment = 0;
+        private bool _newGameIsEnabled = true;
 
         public MainViewModels()
         {
@@ -272,9 +273,13 @@ namespace Hangman.ViewModels
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
+        /// <summary>
+        /// Potrzebny ze względu na ograniczenia darmowego konta na wordnik.com
+        /// </summary>
         void Counter()
         {
-            Mouse.OverrideCursor = Cursors.Wait;
+            Mouse.OverrideCursor = Cursors.No;
+            NewGameIsEnabled = false;
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
@@ -297,6 +302,7 @@ namespace Hangman.ViewModels
                 _wordExplanation = "Oh yeah, now it's OK:) Click on button \"NEW GAME\"!";
                 GameStatus = _wordExplanation;
                 Mouse.OverrideCursor = Cursors.Arrow;
+                NewGameIsEnabled = true;
             }
         }
 
@@ -378,6 +384,17 @@ namespace Hangman.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public bool NewGameIsEnabled
+        {
+            get { return _newGameIsEnabled; }
+            set
+            {
+                _newGameIsEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public ObservableCollection<char> GuessingLetters
         {
