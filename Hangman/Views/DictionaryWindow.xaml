@@ -12,7 +12,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mycntr="clr-namespace:Hangman.UserControls"
     x:Name="DWindow"
-    Title="Wisielec - Dictionary"
+    Title="Hangman/Wisielec - Dictionaries"
     Width="1020"
     Height="690"
     ResizeMode="NoResize"
@@ -53,19 +53,6 @@
                 ButtonBigText="≡Show all dictionaries"
                 ToolTip="Click on me to show all available dictionaries." />
         </Grid>
-        <!--<ListBox
-            Grid.Row="1"
-            Grid.RowSpan="3"
-            Grid.Column="1"
-            ItemsSource="{Binding Words}"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectedItem="{Binding SelectedWordEntity}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Word}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
         <mycntr:PdvButtonBig
             Grid.Row="0"
             Grid.Column="2"
