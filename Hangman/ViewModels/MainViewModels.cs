@@ -212,6 +212,7 @@ namespace Hangman.ViewModels
             }
         }
 
+        //TODO: wordnik || dictionaries:)
         private void NewRandomWord()
         {
             //var randomIx = random.Next(_availaibleWord.Count);

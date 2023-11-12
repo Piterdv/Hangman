@@ -72,7 +72,7 @@
             ButtonBigClickCommand="{Binding ChooseDictionaryCommand}"
             ButtonBigClickCommandParameter="{Binding ElementName=DictionaryNameTb}"
             ButtonBigText="‹Choose this dictionary "
-            ToolTip="Click on me to choose or create a new dictionary of name from text box." />
+            ToolTip="Click on me to choose or create (if not exists) a new dictionary of ''dictionary name''." />
 
         <!--  ROW I  -->
         <TextBlock
@@ -124,7 +124,7 @@
                     TextAlignment="Center" />
                 <TextBlock
                     Width="200"
-                    Foreground="LightGreen"
+                    Foreground="{Binding ChoosenDictionaryColor}"
                     Style="{StaticResource OrangeTBNormal}"
                     Text="{Binding Text, ElementName=DictionaryNameTb}"
                     TextAlignment="Center"
