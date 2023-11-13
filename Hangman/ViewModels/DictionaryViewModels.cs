@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.DirectoryServices;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -254,7 +255,7 @@ namespace Hangman.ViewModels
         {
             _dictionaries = FileHelpers.GetDictionaryFileNameToList(_dictionaryDirPath);
 
-            if(_dictionaries.Count == 0)
+            if (_dictionaries.Count == 0)
             {
                 MessageBox.Show("There's no dictionaries!\nYou have to write name of dictionary (like Animals or Verbs or what you want) in field \"Dictionary name:\" and then click on button \"‹Choose this dictionary\" to create it.");
                 return;
@@ -291,6 +292,7 @@ namespace Hangman.ViewModels
 
         private void Close(object obj)
         {
+            if (_wordEntities != null && _wordEntities.Count > 0) _wordEntities.RemoveAt(0);
             LocalDictionary.Dictionary = _wordEntities;
             (obj as Window)?.Close();
         }
