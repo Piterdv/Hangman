@@ -12,6 +12,6 @@ namespace Hangman.Helpers
     {
         internal static string AppVersion { get; set; } = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        internal static string AppName { get; set; } =  $"Hangman {DateTime.Now.Year} {AppVersion} ";
+        internal static string AppName { get; set; } =  $"Piterdv Hangman {DateTime.Now.Year} {AppVersion} ";
     }
 }

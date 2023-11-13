@@ -53,7 +53,7 @@ namespace Hangman.ViewModels
             NewGameCommand = new RelayCommand(NewGame);
             KeyClickedCommand = new RelayCommand(KeyClicked);
             HelpMeCommand = new RelayCommand(HelpMe);
-            ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaQwerty);
+            ToggleAlphaQwertyCommand = new RelayCommand(ToggleAlphaOrQwerty);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
             EditDictionaryCommand = new RelayCommand(EditDictionary);
             AddWordToDictionariesCommand = new RelayCommand(AddWordToDictionaries);
@@ -224,7 +224,7 @@ namespace Hangman.ViewModels
             dictionaryWindow.ShowDialog();
         }
 
-        private void ToggleAlphaQwerty(object obj)
+        private void ToggleAlphaOrQwerty(object obj)
         {
             if (obj == null) return;
 
@@ -359,7 +359,7 @@ namespace Hangman.ViewModels
         {
             if (!_internetOrLocalSource)
             {
-                GetWordAndExplFromDictionaries();
+                GetWordAndExplFromLocalDictionaries();
             }
             else
             {
@@ -367,7 +367,7 @@ namespace Hangman.ViewModels
             }
         }
 
-        private void GetWordAndExplFromDictionaries()
+        private void GetWordAndExplFromLocalDictionaries()
         {
             int maxIx = LocalDictionary.Dictionary.Count;
             int randomIx = -1;
@@ -438,7 +438,7 @@ namespace Hangman.ViewModels
         }
 
         /// <summary>
-        /// Potrzebny ze względu na ograniczenia darmowego konta na wordnik.com
+        /// Potrzebny ze względu na ograniczenia darmowego konta na wordnik
         /// </summary>
         void Counter()
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Hangman.Helpers
 {
     /// <summary>
-    /// This class is used to store the dictionary in memory. Not the best solution, but it works.
+    /// This class is used to store the dictionary in memory. Not the best solution, but it works and I'm too tired now:).
     /// </summary>
     internal static class LocalDictionary
     {

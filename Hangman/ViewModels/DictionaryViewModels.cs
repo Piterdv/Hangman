@@ -31,7 +31,7 @@ namespace Hangman.ViewModels
         private List<WordEntity> _wordEntities = new List<WordEntity>();
         private List<DictionaryEntity> _dictionaries = new List<DictionaryEntity>();
         private WordEntity _selectedWordEntity = new WordEntity();
-        private string _dictionaryName = ""; //"DefaultDictionary";
+        private string _dictionaryName = "";
         private string _hiddenDictionary = "Hidden";
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
         private Brush _choosenDictionaryColor = Brushes.LightGreen;
@@ -98,7 +98,6 @@ namespace Hangman.ViewModels
         {
             UpdateListOfWords();
             FileHelpers.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
-            //MessageBox.Show("Dictionary saved!");
             ChooseDictionary(new TextBox { Text = _dictionary });
             ChoosenDictionaryColor = Brushes.LightGreen;
         }
