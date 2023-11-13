@@ -89,7 +89,7 @@ namespace Hangman.Helpers
                 {
                     DictionaryName = Path.GetFileNameWithoutExtension(file),
                     DateCreated = File.GetCreationTime(file).ToString("yyyy-MM-dd HH:mm"),
-                    NumberOfWords = GetWordsFromJsonFile(file).Count
+                    NumberOfWords = GetWordsFromJsonFile(file).Count-1 // -1 because of the first line
                 });
             }
 

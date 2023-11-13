@@ -1,12 +1,11 @@
 ﻿using Hangman.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hangman.Helpers
 {
+    /// <summary>
+    /// This class is used to store the dictionary in memory. Not the best solution, but it works.
+    /// </summary>
     internal static class LocalDictionary
     {
         public static List<WordEntity> Dictionary { get; set; } = new List<WordEntity>();
