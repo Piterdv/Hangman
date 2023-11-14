@@ -2,12 +2,9 @@
 using Hangman.Commands;
 using Hangman.Helpers;
 using Hangman.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.DirectoryServices;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -235,7 +232,7 @@ namespace Hangman.ViewModels
         {
             if (((TextBox)obj).Text == string.Empty)
             {
-                MessageBox.Show("There's no dictionary name, write it:)");
+                MessageBox.Show("There's no choosen dictionary name. So write it in text box or choose from list of dictionaries after you'll click on \"≡Show all dictionaries\" button :)");
                 return;
             }
 

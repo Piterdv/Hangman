@@ -130,17 +130,18 @@
                     Command="{Binding InternetOrLocalDictionaryCommand}"
                     Content="Internet"
                     IsChecked="{Binding InternetOrLocalSource}"
-                    Style="{StaticResource ToggleButtonV}" />
+                    Style="{StaticResource ToggleButtonV}"
+                    ToolTip="Choose whether to download vocabulary from the Internet or use your own dictionaries." />
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding AddWordToDictionariesCommand}"
                     ButtonClickCommandParameter="{Binding ElementName=Keyboard}"
                     ButtonText="+ADD"
                     IsEnabled="{Binding NewGameIsEnabled}"
-                    ToolTip="Add this word to dictionary." />
+                    ToolTip="Add this word to your dictionary." />
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding EditDictionaryCommand}"
                     ButtonText="EDIT"
-                    ToolTip="Edit dictionary." />
+                    ToolTip="Edit your dictionary." />
                 <mycntr:PdvButton
                     ButtonClickCommand="{Binding ChooseDictionaryCommand}"
                     ButtonText="√≡≡≡"

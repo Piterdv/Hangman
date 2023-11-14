@@ -71,7 +71,7 @@ namespace Hangman.ViewModels
         public ICommand InternetOrLocalDictionaryCommand { get; set; }
         public ICommand AddWordToDictionariesCommand { get; set; }
 
-        
+
         public string WindowTitle
         {
             get { return _windowTitle; }
@@ -162,8 +162,6 @@ namespace Hangman.ViewModels
             }
         }
 
-
-
         public ObservableCollection<char> GuessingLetters
         {
             get { return _guessingLetters; }
@@ -189,7 +187,7 @@ namespace Hangman.ViewModels
             _isGameOver = false;
             _wrongAttempts = 0;
             UpdateImage();
-            GameStatus = "Click the choosen letter to guess the entry";
+            GameStatus = "Click the choosen letter to guess the entry...";
             BackgroundColor = Brushes.Transparent;
             _howManyWordsInHelp = 0;
             HelpMeValue = "HELP ME, please...";
@@ -311,7 +309,7 @@ namespace Hangman.ViewModels
                 if (_wrongAttempts == MaxAttempessToGuessWord)
                 {
                     _isGameOver = true;
-                    GameStatus = $"Przegrałeś. Prawidłowe hasło to: {_guessingWord}";
+                    GameStatus = $"You have lost. The correct password is: {_guessingWord}";
                     BackgroundColor = Brushes.Red;
                 }
                 return;
@@ -373,11 +371,17 @@ namespace Hangman.ViewModels
             int randomIx = -1;
             bool repeat = false;
 
+            if (maxIx == 0)
+            {
+                MessageBox.Show("If you want to use your own dictionaries rather than downloading vocabulary from the internet, you must first select the one you are interested in.To do this, click on the lowest small button on the left \"√|\" and select a dictionary in the window that opens.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+            }
+
             do
             {
                 if (maxIx == _choosenIndexes.Count)
                 {
-                    if (MessageBox.Show("Wylosowano wszystkie słowa z bazy. Czy chcesz rozpocząć losowanie od początku?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    if (MessageBox.Show("All the words from the base have been drawn. Do you want to start the draw from the beginning?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         _choosenIndexes.Clear();
                     else
                         return;
@@ -423,7 +427,7 @@ namespace Hangman.ViewModels
             if (wt.Word.Contains("ErrorTMR"))
             {
                 _guessingWord = "?";
-                _wordExplanation = "Wait a moment, because you try to get too many words is short period of time. Wait 60s ;)";
+                _wordExplanation = "Wait a moment, because you try to get too many words is short period of time. Wait 60s, please ;)";
                 _partOfSpeach = "?";
                 GameStatus = _wordExplanation;
             }
@@ -463,7 +467,7 @@ namespace Hangman.ViewModels
                 _increment = 0;
                 ((DispatcherTimer)sender).Stop();
                 _guessingWord = "OK";
-                _wordExplanation = "Oh yeah, now it's OK:) Click on button \"NEW GAME\"!";
+                _wordExplanation = "Oh yeah, now it's OK:) You can click on button \"NEW GAME\"!";
                 GameStatus = _wordExplanation;
                 Mouse.OverrideCursor = Cursors.Arrow;
                 NewGameIsEnabled = true;
