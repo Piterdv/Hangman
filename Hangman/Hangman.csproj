@@ -28,6 +28,7 @@
 		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="WinSCP" Version="6.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>

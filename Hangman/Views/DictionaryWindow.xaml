@@ -171,50 +171,62 @@
             ToolTip="Hide this window." />
 
         <!--  NA GORĘ - ZORDER:)  -->
-        <ListBox
+        <Grid
             Grid.Row="1"
             Grid.RowSpan="3"
             Grid.Column="1"
-            FontSize="20"
-            ItemsSource="{Binding Dictionaries}"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectedItem="{Binding SelectedDictionaryEntity}"
+            Background="Orange"
             Visibility="{Binding HiddenDictionary}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontFamily="Consolas"
-                            FontSize="15"
-                            FontWeight="ExtraLight"
-                            Foreground="Gray"
-                            Text="{Binding DateCreated}"
-                            ToolTip="Created date" />
-                        <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            FontFamily="Consolas"
-                            FontSize="15"
-                            FontWeight="ExtraLight"
-                            Foreground="DarkOrange"
-                            Text="{Binding NumberOfWords}"
-                            ToolTip="Number of words" />
-                        <TextBlock
-                            Grid.Column="2"
-                            Margin="0,-3,0,0"
-                            HorizontalAlignment="Left"
-                            Text="{Binding DictionaryName}" />
-
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox
+                FontSize="20"
+                ItemsSource="{Binding Dictionaries}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectedItem="{Binding SelectedDictionaryEntity}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="Consolas"
+                                FontSize="15"
+                                FontWeight="ExtraLight"
+                                Foreground="Gray"
+                                Text="{Binding DateCreated}"
+                                ToolTip="Created date" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontFamily="Consolas"
+                                FontSize="15"
+                                FontWeight="ExtraLight"
+                                Foreground="DarkOrange"
+                                Text="{Binding NumberOfWords}"
+                                ToolTip="Number of words" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="0,-3,0,0"
+                                HorizontalAlignment="Left"
+                                Text="{Binding DictionaryName}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <mycntr:PdvButtonBig
+                Grid.Row="1"
+                Margin="12"
+                ButtonBigClickCommand="{Binding SynchronizeCommand}"
+                ButtonBigText="∞Synchronize dictionaries"
+                ToolTip="Click on me to synchronize dictionaries to send or get newest version from server." />
+        </Grid>
 
     </Grid>
 </mah:MetroWindow>

@@ -2,6 +2,7 @@
 using Hangman.Commands;
 using Hangman.Helpers;
 using Hangman.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -41,6 +42,7 @@ namespace Hangman.ViewModels
             ShowAllDictonariesCommand = new RelayCommand(ShowAllDictonaries);
             SaveDictionaryCommand = new RelayCommand(SaveDictionary);
             FindWordCommand = new RelayCommand(FindWord);
+            SynchronizeCommand = new RelayCommand(Synchronize);
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
 
@@ -53,6 +55,85 @@ namespace Hangman.ViewModels
             _mvm = mvm;
         }
 
+        private void Synchronize(object obj)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+
+            //może odpuścić sobie konstruktor?
+            FtpHelper ftpHelper = new FtpHelper(AppSettings.FtpServer, AppSettings.FtpUser, AppSettings.FtpPassword, AppSettings.FtpPath);
+            List<MyFile> ftpl = ftpHelper.GetListOfFiles();
+            List<string> files = new List<string>();
+            List<string> newestFile = new List<string>();
+            int filesGetCount = 0;
+
+            //select all file from ftp server which are not on local directory or there are newest and add then to list
+            foreach (var f in ftpl)
+            {
+                if (!File.Exists(_dictionaryDirPath + f.Name))
+                {
+                    files.Add(f.Path);
+                }
+                else
+                {
+                    if (DateTime.Parse(f.LastModified) > File.GetLastWriteTime(_dictionaryDirPath + f.Name))
+                    {
+                        files.Add(f.Path);
+                    }
+                }
+            }
+
+            foreach (var f in files)
+            {
+                if (ftpHelper.GetFileFromFtp(f, _dictionaryDirPath + Path.GetFileName(f)))
+                {
+                    newestFile.Add(Path.GetFileName(f));
+                }
+            }
+
+            filesGetCount = files.Count;
+            files.Clear();
+
+            //select all files from local directory which are not on ftp file or there are older on ftp server and add them to list
+            foreach (var f in Directory.GetFiles(_dictionaryDirPath))
+            {
+                //jeżeli pobrane z ftp pliki są nowsze niż te na dysku to nie wysyłać ich
+                if (newestFile.Contains(Path.GetFileName(f)))
+                {
+                    continue;
+                }
+
+                if (!ftpl.Exists(x => x.Name == Path.GetFileName(f)))
+                {
+                    files.Add(f);
+                }
+                else
+                {
+                    if (File.GetLastWriteTime(f) > DateTime.Parse(ftpl.Find(x => x.Name == Path.GetFileName(f)).LastModified))
+                    {
+                        files.Add(f);
+                    }
+                }
+            }
+
+
+            if (files.Count == 0 && filesGetCount == 0)
+            {
+                MessageBox.Show("All files are up to date!");
+                Mouse.OverrideCursor = Cursors.Arrow;
+                return;
+            }
+
+            if (ftpHelper.SaveAllChoosenFileToFtp(files))
+            {
+                MessageBox.Show("All files have been synchronized!");
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong!");
+            }
+
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
 
         public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
         public BindableCollection<DictionaryEntity> Dictionaries { get; set; } = new BindableCollection<DictionaryEntity>();
@@ -61,6 +142,7 @@ namespace Hangman.ViewModels
         public ICommand ShowAllDictonariesCommand { get; set; }
         public ICommand SaveDictionaryCommand { get; set; }
         public ICommand FindWordCommand { get; set; }
+        public ICommand SynchronizeCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
 
