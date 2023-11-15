@@ -10,6 +10,7 @@ namespace Hangman.Models
     {
         public string DictionaryName { get; set; }= "";
         public string DateCreated { get; set; } = "";
+        public string DateModified { get; set; } = "";
         public int NumberOfWords { get; set; } = 0;
     }
 }
