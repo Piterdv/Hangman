@@ -94,7 +94,7 @@ namespace Hangman.ViewModels
         private void SaveDictionary(object obj)
         {
             UpdateListOfWords();
-            FileHelpers.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
+            FileHelper.SaveDictionaryToJsonFile(_dictionaryFullPath, _wordEntities);
             ChooseDictionary(new TextBox { Text = _dictionary });
             ChoosenDictionaryColor = Brushes.LightGreen;
         }
@@ -249,7 +249,7 @@ namespace Hangman.ViewModels
 
         private void ShowAllDictonaries(object obj)
         {
-            _dictionaries = FileHelpers.GetDictionaryFileNameToList(_dictionaryDirPath);
+            _dictionaries = FileHelper.GetDictionaryFileNameToList(_dictionaryDirPath);
 
             if (_dictionaries.Count == 0)
             {
@@ -289,7 +289,7 @@ namespace Hangman.ViewModels
         private void Close(object obj)
         {
             if (_wordEntities != null && _wordEntities.Count > 0) _wordEntities.RemoveAt(0);
-            LocalDictionary.Dictionary = _wordEntities;
+            if (_mvm != null) LocalDictionary.Dictionary = _wordEntities;
             (obj as Window)?.Close();
         }
 
@@ -303,7 +303,7 @@ namespace Hangman.ViewModels
             }
 
             _dictionaryFullPath = _dictionaryDirPath + dictionary + ".json";
-            _wordEntities = FileHelpers.CreateOrChooseDictionary(_dictionaryFullPath);
+            _wordEntities = FileHelper.CreateOrChooseDictionary(_dictionaryFullPath);
         }
 
 

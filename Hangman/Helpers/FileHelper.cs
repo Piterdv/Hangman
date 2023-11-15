@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Hangman.Helpers
 {
-    public static class FileHelpers
+    public static class FileHelper
     {
 
         private static string _filePathDictionary = "";
