@@ -108,6 +108,7 @@ namespace Hangman.ViewModels
                 }
                 else
                 {
+                    //fuck - z ftpa nie ma sekund?
                     if (File.GetLastWriteTime(f) > DateTime.Parse(ftpl.Find(x => x.Name == Path.GetFileName(f)).LastModified))
                     {
                         files.Add(f);
@@ -131,6 +132,8 @@ namespace Hangman.ViewModels
             {
                 MessageBox.Show("Something went wrong!");
             }
+
+            ShowAllDictonaries(null);
 
             Mouse.OverrideCursor = Cursors.Arrow;
         }
@@ -329,7 +332,7 @@ namespace Hangman.ViewModels
             OnPropertyChanged(nameof(Words));
         }
 
-        private void ShowAllDictonaries(object obj)
+        private void ShowAllDictonaries(object? obj)
         {
             _dictionaries = FileHelper.GetDictionaryFileNameToList(_dictionaryDirPath);
 
