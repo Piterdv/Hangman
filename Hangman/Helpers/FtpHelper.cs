@@ -21,7 +21,7 @@ namespace Hangman.Helpers
             _ftpUser = ftpUser;
             _ftpPassword = ftpPassword;
             _ftpPath = ftpPath;
-            //???
+            //TODO: sorki - się zastanowię???
             _sessionOptions = new SessionOptions
             {
                 Protocol = Protocol.Ftp,
