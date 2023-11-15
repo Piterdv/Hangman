@@ -289,7 +289,7 @@ namespace Hangman.ViewModels
         private void Close(object obj)
         {
             if (_wordEntities != null && _wordEntities.Count > 0) _wordEntities.RemoveAt(0);
-            if(_mvm != null) LocalDictionary.Dictionary = _wordEntities;
+            LocalDictionary.Dictionary = _wordEntities;
             (obj as Window)?.Close();
         }
 
