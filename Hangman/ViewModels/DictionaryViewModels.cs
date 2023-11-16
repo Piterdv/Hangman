@@ -90,6 +90,9 @@ namespace Hangman.ViewModels
                 }
             }
 
+            ShowAllDictonaries(null);
+            CheckFtpSynchro(newestFile, 2);
+
             filesGetCount = files.Count;
             files.Clear();
 
@@ -116,6 +119,8 @@ namespace Hangman.ViewModels
                 }
             }
 
+            List<string> list = GetOnlyFileNameFromList(files);
+            CheckFtpSynchro(list, 1);
 
             if (files.Count == 0 && filesGetCount == 0)
             {
@@ -133,9 +138,21 @@ namespace Hangman.ViewModels
                 MessageBox.Show("Something went wrong!");
             }
 
-            ShowAllDictonaries(null);
+            //ShowAllDictonaries(null);
 
             Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        private static List<string> GetOnlyFileNameFromList(List<string> files)
+        {
+            List<string> fi = new List<string>();
+
+            foreach (var f in files)
+            {
+                fi.Add(Path.GetFileName(f));
+            }
+
+            return fi;
         }
 
         public BindableCollection<WordEntity> Words { get; set; } = new BindableCollection<WordEntity>();
@@ -346,6 +363,28 @@ namespace Hangman.ViewModels
             OnPropertyChanged(nameof(Dictionaries));
 
             HiddenDictionary = "Visible";
+        }
+
+        /// <summary>
+        /// Odświeżanie listy słowników po synchronizacji
+        /// </summary>
+        /// <param name="dictName"></param>
+        /// <param name="updwnok">ok 0, upload 1, download 2</param>
+        private void CheckFtpSynchro(List<string> dictName, int updwnok = 0)
+        {
+            foreach (var d in _dictionaries)
+            {
+                if (dictName.Contains(d.DictionaryName + ".json"))
+                {
+                    if (updwnok == 1) d.Upload = "Visible";
+                    if (updwnok == 2) d.Download = "Visible";
+                    if (updwnok == 0) d.Ok = "Visible";
+                }
+            }
+
+            Dictionaries = new BindableCollection<DictionaryEntity>(_dictionaries);
+            OnPropertyChanged(nameof(Dictionaries));
+
         }
 
         private void AddNewWordToDictionary(object obj)

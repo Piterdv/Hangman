@@ -12,5 +12,8 @@ namespace Hangman.Models
         public string DateCreated { get; set; } = "";
         public string DateModified { get; set; } = "";
         public int NumberOfWords { get; set; } = 0;
+        public string Upload { get; set; } = "Hidden";
+        public string Download { get; set; } = "Hidden";
+        public string Ok { get; set; } = "Hidden";
     }
 }

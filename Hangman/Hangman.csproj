@@ -10,7 +10,7 @@
 		<Company>Piroundsoft </Company>
 		<WebPage>https://piroudsoft.pl</WebPage>
 		<Product>Hangman</Product>
-		<Version>1.3.33</Version>
+		<Version>1.4.1</Version>
 		<IsPublishable>True</IsPublishable>
 		<Title>Wisielec/Hangman</Title>
 		<Description>Prosta gra w nauczanie słówek albo coś tam innego 4Nataszka an me too:)</Description>
@@ -46,6 +46,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="appsettings.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Images\0_mistake.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
