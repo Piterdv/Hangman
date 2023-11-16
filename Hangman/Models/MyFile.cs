@@ -18,6 +18,5 @@ namespace Hangman.Models
         public bool IsReadOnly { get; set; }
         public string Permissions { get; set; } = string.Empty;
         public string MyFileOrDir { get; set; } = string.Empty;
-        public string Date { get; set; } = string.Empty;
     }
 }

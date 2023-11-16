@@ -61,7 +61,6 @@ namespace Hangman.Helpers
                             IsReadOnly = fileInfo.FilePermissions.UserWrite,
                             Permissions = fileInfo.FilePermissions.ToString(),
                             MyFileOrDir = fileInfo.IsDirectory.ToString(),
-                            Date = fileInfo.LastWriteTime.ToString()
                         });
                     }
                 }

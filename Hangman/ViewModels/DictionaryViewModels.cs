@@ -99,7 +99,6 @@ namespace Hangman.ViewModels
             //select all files from local directory which are not on ftp file or there are older on ftp server and add them to list
             foreach (var f in Directory.GetFiles(_dictionaryDirPath))
             {
-                //jeżeli pobrane z ftp pliki są nowsze niż te na dysku to nie wysyłać ich
                 if (newestFile.Contains(Path.GetFileName(f)))
                 {
                     continue;
@@ -111,8 +110,8 @@ namespace Hangman.ViewModels
                 }
                 else
                 {
-                    //fuck - z ftpa nie ma sekund?
-                    if (File.GetLastWriteTime(f) > DateTime.Parse(ftpl.Find(x => x.Name == Path.GetFileName(f)).LastModified))
+                    if (ConvertDateTimeToOwnFormatWithoutMs(File.GetLastWriteTime(f)) > 
+                        ConvertDateTimeToOwnFormatWithoutMs(DateTime.Parse(ftpl.Find(x => x.Name == Path.GetFileName(f)).LastModified)))
                     {
                         files.Add(f);
                     }
@@ -138,9 +137,12 @@ namespace Hangman.ViewModels
                 MessageBox.Show("Something went wrong!");
             }
 
-            //ShowAllDictonaries(null);
-
             Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        private DateTime ConvertDateTimeToOwnFormatWithoutMs(DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second);
         }
 
         private static List<string> GetOnlyFileNameFromList(List<string> files)
