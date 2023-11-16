@@ -81,7 +81,7 @@ namespace Hangman.Helpers
 
         public bool SaveAllChoosenFileToFtp(List<string> path)
         {
-            bool result = false;
+            bool result = true;
 
             try
             {
@@ -99,12 +99,9 @@ namespace Hangman.Helpers
                     {
                         var res = session.PutFiles(item, "/" + _ftpPath + "/"); //, false, transferOptions
 
-                        if (res.IsSuccess)
+                        if (!res.IsSuccess)
                         {
-                            result = true;
-                        }
-                        else
-                        {
+                            result = false;
                             MessageBox.Show("Error: " + res.Failures);
                         }
                     }
@@ -120,7 +117,7 @@ namespace Hangman.Helpers
 
         public bool GetFileFromFtp(string path, string fileName)
         {
-            bool result = false;
+            bool result = true;
 
             try
             {
@@ -136,12 +133,9 @@ namespace Hangman.Helpers
 
                     var res = session.GetFiles(path, fileName); //, false, transferOptions
 
-                    if (res.IsSuccess)
+                    if (!res.IsSuccess)
                     {
-                        result = true;
-                    }
-                    else
-                    {
+                        result = false;
                         MessageBox.Show("Error: " + res.Failures);
                     }
                 }
