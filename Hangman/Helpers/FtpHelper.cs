@@ -1,6 +1,7 @@
 ﻿using Hangman.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using WinSCP;
 
@@ -14,6 +15,7 @@ namespace Hangman.Helpers
         private static string _ftpPassword = "";
         private static string _ftpPath = "";
         private SessionOptions _sessionOptions;
+        private static string _scpExePath = Directory.GetCurrentDirectory() + "\\WinSCP\\WinSCP.exe";
 
         public FtpHelper(string ftpServer, string ftpUser, string ftpPassword, string ftpPath)
         {
@@ -27,7 +29,7 @@ namespace Hangman.Helpers
                 Protocol = Protocol.Ftp,
                 HostName = _ftpServer,
                 UserName = _ftpUser,
-                Password = _ftpPassword
+                Password = _ftpPassword,
             };
         }
 
@@ -36,10 +38,14 @@ namespace Hangman.Helpers
 
             _files.Clear();
 
+            File.Create(_scpExePath+"eeee").Close();
+
             try
             {
                 using (Session session = new Session())
                 {
+                    session.ExecutablePath = _scpExePath;
+                    
                     session.Open(_sessionOptions);
 
                     RemoteDirectoryInfo directory = session.ListDirectory(_ftpPath);
@@ -81,6 +87,8 @@ namespace Hangman.Helpers
             {
                 using (Session session = new Session())
                 {
+                    session.ExecutablePath = _scpExePath;
+
                     session.Open(_sessionOptions);
 
                     TransferOptions transferOptions = new TransferOptions();
@@ -118,6 +126,8 @@ namespace Hangman.Helpers
             {
                 using (Session session = new Session())
                 {
+                    session.ExecutablePath = _scpExePath;
+
                     session.Open(_sessionOptions);
 
                     TransferOptions transferOptions = new TransferOptions();

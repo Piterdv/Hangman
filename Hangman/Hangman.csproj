@@ -89,6 +89,13 @@
 		  <Generator>SettingsSingleFileGenerator</Generator>
 		  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
+		<None Update="WinSCP\WinSCP.exe">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="WinSCP\" />
 	</ItemGroup>
 
 </Project>

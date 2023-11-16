@@ -1,0 +1,4 @@
+dotnet publish -p:PublishSingleFile=true -r win-x64 -c Release --self-contained true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=yes
+
++DIR:
+WinSCP z WinSCP.exe + dll.
