@@ -3,6 +3,7 @@ using Hangman.Enums;
 using Hangman.Helpers;
 using Hangman.Models;
 using Hangman.Views;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -47,8 +47,9 @@ namespace Hangman.ViewModels
         private bool _internetOrLocalSource = true;
         private static string _tmpWindowTitle = string.Empty;
         private List<int> _choosenIndexes = new List<int>();
+        private IDialogCoordinator _dialogCoordinator;
 
-        public MainViewModels()
+        public MainViewModels(IDialogCoordinator instance)
         {
             NewGameCommand = new RelayCommand(NewGame);
             KeyClickedCommand = new RelayCommand(KeyClicked);
@@ -58,6 +59,7 @@ namespace Hangman.ViewModels
             EditDictionaryCommand = new RelayCommand(EditDictionary);
             AddWordToDictionariesCommand = new RelayCommand(AddWordToDictionaries);
             InternetOrLocalDictionaryCommand = new RelayCommand(InternetOrLocalDictionary);
+            _dialogCoordinator = instance;
         }
 
         //--------------------------properties
@@ -365,7 +367,7 @@ namespace Hangman.ViewModels
             }
         }
 
-        private void GetWordAndExplFromLocalDictionaries()
+        private async void GetWordAndExplFromLocalDictionaries()
         {
             int maxIx = LocalDictionary.Dictionary.Count;
             int randomIx = -1;
@@ -373,15 +375,15 @@ namespace Hangman.ViewModels
 
             if (maxIx == 0)
             {
-                MessageBox.Show("If you want to use your own dictionaries rather than downloading vocabulary from the internet, you must first select the one you are interested in.To do this, click on the lowest small button on the left \"√|\" and select a dictionary in the window that opens.", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga","If you want to use your own dictionaries rather than downloading vocabulary from the internet, you must first select the one you are interested in.\nTo do this, click on the lowest small button on the left \"√|\" and select a dictionary in the window that opens.");//, MessageBoxButton.OK, MessageBoxImage.Information
+                return;
             }
 
             do
             {
                 if (maxIx == _choosenIndexes.Count)
                 {
-                    if (MessageBox.Show("All the words from the base have been drawn. Do you want to start the draw from the beginning?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    if (await this._dialogCoordinator.ShowMessageAsync(this,"Uwaga","All the words from the base have been drawn. Do you want to start the draw from the beginning?",MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative)
                         _choosenIndexes.Clear();
                     else
                         return;

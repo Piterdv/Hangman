@@ -1,4 +1,5 @@
 ﻿using Hangman.ViewModels;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Hangman
 {
@@ -10,7 +11,7 @@ namespace Hangman
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModels();
+            DataContext = new MainViewModels(DialogCoordinator.Instance);
         }
 
     }

@@ -22,4 +22,9 @@ namespace Hangman.Enums
     {
         Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
     }
+
+    public enum FtpAction
+    {
+        Ok, Upload, Download
+    }
 }

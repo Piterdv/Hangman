@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
 using Hangman.Commands;
+using Hangman.Enums;
 using Hangman.Helpers;
 using Hangman.Models;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,8 +36,9 @@ namespace Hangman.ViewModels
         private DictionaryEntity _selectedDictionaryEntity = new DictionaryEntity();
         private Brush _choosenDictionaryColor = Brushes.LightGreen;
         private readonly MainViewModels _mvm;
+        private readonly IDialogCoordinator _dialogCoordinator;
 
-        public DictionaryViewModels(WordEntity? de, MainViewModels mvm)
+        public DictionaryViewModels(WordEntity? de, MainViewModels mvm, IDialogCoordinator instance)
         {
             AddNewWordToDictionaryCommand = new RelayCommand(AddNewWordToDictionary);
             ChooseDictionaryCommand = new RelayCommand(ChooseDictionary);
@@ -45,6 +48,8 @@ namespace Hangman.ViewModels
             SynchronizeCommand = new RelayCommand(Synchronize);
             CloseCommand = new RelayCommand(Close);
             EnabledButton = false;
+            _dialogCoordinator = instance;
+
 
             if (de != null)
             {
@@ -55,7 +60,7 @@ namespace Hangman.ViewModels
             _mvm = mvm;
         }
 
-        private void Synchronize(object obj)
+        private async void Synchronize(object obj)
         {
             Mouse.OverrideCursor = Cursors.Wait;
 
@@ -65,6 +70,7 @@ namespace Hangman.ViewModels
             List<string> files = new List<string>();
             List<string> newestFile = new List<string>();
             int filesGetCount = 0;
+            bool Ok = true;
 
             //select all file from ftp server which are not on local directory or there are newest and add then to list
             foreach (var f in ftpl)
@@ -88,10 +94,21 @@ namespace Hangman.ViewModels
                 {
                     newestFile.Add(Path.GetFileName(f));
                 }
+                else
+                {
+                    Ok = false;
+                }
+            }
+
+            if (!Ok)
+            {
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "Something went wrong on download!");
+                Mouse.OverrideCursor = Cursors.Arrow;
+                return;
             }
 
             ShowAllDictonaries(null);
-            CheckFtpSynchro(newestFile, 2);
+            CheckFtpSynchro(newestFile, FtpAction.Download);
 
             filesGetCount = files.Count;
             files.Clear();
@@ -110,7 +127,7 @@ namespace Hangman.ViewModels
                 }
                 else
                 {
-                    if (ConvertDateTimeToOwnFormatWithoutMs(File.GetLastWriteTime(f)) > 
+                    if (ConvertDateTimeToOwnFormatWithoutMs(File.GetLastWriteTime(f)) >
                         ConvertDateTimeToOwnFormatWithoutMs(DateTime.Parse(ftpl.Find(x => x.Name == Path.GetFileName(f)).LastModified)))
                     {
                         files.Add(f);
@@ -119,22 +136,22 @@ namespace Hangman.ViewModels
             }
 
             List<string> list = GetOnlyFileNameFromList(files);
-            CheckFtpSynchro(list, 1);
+            CheckFtpSynchro(list, FtpAction.Upload);
 
             if (files.Count == 0 && filesGetCount == 0)
             {
-                MessageBox.Show("All files are up to date!");
+                await this._dialogCoordinator.ShowMessageAsync(this, "OK:)", "All files are up to date!");
                 Mouse.OverrideCursor = Cursors.Arrow;
                 return;
             }
 
             if (ftpHelper.SaveAllChoosenFileToFtp(files))
             {
-                MessageBox.Show("All files have been synchronized!");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "All files have been synchronized!");
             }
             else
             {
-                MessageBox.Show("Something went wrong!");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "Something went wrong on uload!");
             }
 
             Mouse.OverrideCursor = Cursors.Arrow;
@@ -332,11 +349,11 @@ namespace Hangman.ViewModels
             }
         }
 
-        public void ChooseDictionary(object obj)
+        public async void ChooseDictionary(object obj)
         {
             if (((TextBox)obj).Text == string.Empty)
             {
-                MessageBox.Show("There's no choosen dictionary name. So write it in text box or choose from list of dictionaries after you'll click on \"≡Show all dictionaries\" button :)");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "There's no choosen dictionary name. So write it in text box or choose from list of dictionaries after you'll click on \"≡Show all dictionaries\" button :)");
                 return;
             }
 
@@ -351,13 +368,13 @@ namespace Hangman.ViewModels
             OnPropertyChanged(nameof(Words));
         }
 
-        private void ShowAllDictonaries(object? obj)
+        private async void ShowAllDictonaries(object? obj)
         {
             _dictionaries = FileHelper.GetDictionaryFileNameToList(_dictionaryDirPath);
 
             if (_dictionaries.Count == 0)
             {
-                MessageBox.Show("There's no dictionaries!\nYou have to write name of dictionary (like Animals or Verbs or what you want) in field \"Dictionary name:\" and then click on button \"‹Choose this dictionary\" to create it.");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "There's no dictionaries!\nYou have to write name of dictionary (like Animals or Verbs or what you want) in field \"Dictionary name:\" and then click on button \"‹Choose this dictionary\" to create it.");
                 return;
             }
 
@@ -372,15 +389,15 @@ namespace Hangman.ViewModels
         /// </summary>
         /// <param name="dictName"></param>
         /// <param name="updwnok">ok 0, upload 1, download 2</param>
-        private void CheckFtpSynchro(List<string> dictName, int updwnok = 0)
+        private void CheckFtpSynchro(List<string> dictName, FtpAction ftpAction = FtpAction.Ok)
         {
             foreach (var d in _dictionaries)
             {
                 if (dictName.Contains(d.DictionaryName + ".json"))
                 {
-                    if (updwnok == 1) d.Upload = "Visible";
-                    if (updwnok == 2) d.Download = "Visible";
-                    if (updwnok == 0) d.Ok = "Visible";
+                    if (ftpAction == FtpAction.Upload) d.Upload = "Visible";
+                    if (ftpAction == FtpAction.Download) d.Download = "Visible";
+                    if (ftpAction == FtpAction.Ok) d.Ok = "Visible";
                 }
             }
 
@@ -389,7 +406,7 @@ namespace Hangman.ViewModels
 
         }
 
-        private void AddNewWordToDictionary(object obj)
+        private async void AddNewWordToDictionary(object obj)
         {
             if (_word == string.Empty || _explanation == string.Empty || _speechPart == string.Empty)
             {
@@ -401,7 +418,7 @@ namespace Hangman.ViewModels
             {
                 if (word.Word.ToLower() == _word.ToLower())
                 {
-                    MessageBox.Show($"{word.Word.ToUpper()} already exists in dictionary!\n\nIf you only want to change explanation or part of speech - click on \"Save changes\" button after your modifications.");
+                    await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", $"{word.Word.ToUpper()} already exists in dictionary!\n\nIf you only want to change explanation or part of speech - click on \"Save changes\" button after your modifications.");
                     return;
                 }
             }

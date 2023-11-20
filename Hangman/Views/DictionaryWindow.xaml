@@ -2,6 +2,7 @@
     x:Class="Hangman.Views.DictionaryWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:controlzex="urn:controlzex"
     xmlns:converters="clr-namespace:Hangman.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,6 +16,7 @@
     Title="Hangman/Wisielec - Dictionaries"
     Width="1020"
     Height="690"
+    Dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

@@ -102,14 +102,15 @@ namespace Hangman.Helpers
                         if (!res.IsSuccess)
                         {
                             result = false;
-                            MessageBox.Show("Error: " + res.Failures);
+                            //MessageBox.Show("Error: " + res.Failures);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
+                var a = ex.Message;
             }
 
             return result;
@@ -136,7 +137,7 @@ namespace Hangman.Helpers
                     if (!res.IsSuccess)
                     {
                         result = false;
-                        MessageBox.Show("Error: " + res.Failures);
+                        //MessageBox.Show("Error: " + res.Failures);
                     }
                 }
             }
