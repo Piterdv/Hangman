@@ -15,11 +15,15 @@
 		<Title>Wisielec/Hangman</Title>
 		<Description>Prosta gra w nauczanie słówek albo coś tam innego 4Nataszka an me too:)</Description>
 		<StartupObject>Hangman.App</StartupObject>
-		<ApplicationIcon>Images\HANGMAN_100.ico</ApplicationIcon>
+		<ApplicationIcon>Images\HANGMAN_128.ico</ApplicationIcon>
+		<PackageIcon>HANGMAN_128.png</PackageIcon>
+		<SignAssembly>False</SignAssembly>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="Images\HANGMAN_100.ico" />
+	  <Content Include="Images\HANGMAN_128.ico">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +88,14 @@
 		</None>
 		<None Update="Images\hANGMAN.afdesign">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Images\HANGMAN_100.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Images\HANGMAN_128.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
 		  <Generator>SettingsSingleFileGenerator</Generator>
