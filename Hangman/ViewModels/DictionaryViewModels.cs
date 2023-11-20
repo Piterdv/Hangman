@@ -185,13 +185,14 @@ namespace Hangman.ViewModels
         public ICommand CloseCommand { get; set; }
 
 
-        private void FindWord(object obj)
+        private async void FindWord(object obj)
         {
             string word = ((TextBox)obj).Text;
 
             if (word == string.Empty)
             {
-                MessageBox.Show("Insert word!");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga","Insert word!");
+
                 return;
             }
 
@@ -209,7 +210,7 @@ namespace Hangman.ViewModels
                 }
             }
 
-            MessageBox.Show("Word not found!");
+            await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "Word not found!");
         }
 
         private void SaveDictionary(object obj)
@@ -410,7 +411,7 @@ namespace Hangman.ViewModels
         {
             if (_word == string.Empty || _explanation == string.Empty || _speechPart == string.Empty)
             {
-                MessageBox.Show("Insert all needed value!");
+                await this._dialogCoordinator.ShowMessageAsync(this, "Uwaga", "Insert all needed value!");
                 return;
             }
 
