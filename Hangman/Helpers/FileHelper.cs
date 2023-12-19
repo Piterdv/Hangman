@@ -21,12 +21,12 @@ namespace Hangman.Helpers
         public static List<WordEntity> CreateOrChooseDictionary(string fullPath)
         {
             string fileName = Path.GetFileName(fullPath);
-            string dirPath = Path.GetDirectoryName(fullPath);
+            string dirPath = Path.GetDirectoryName(fullPath)!;
 
             if (!File.Exists(fullPath))
             {
                 if (!Directory.Exists(dirPath))
-                    Directory.CreateDirectory(dirPath);
+                    Directory.CreateDirectory(dirPath!);
 
                 WordEntity wordEntity = new WordEntity
                 {
@@ -76,9 +76,9 @@ namespace Hangman.Helpers
         public static List<DictionaryEntity> GetDictionaryFileNameToList(string fullPath)
         {
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
             
-            string dirName = Path.GetDirectoryName(fullPath);
+            string dirName = Path.GetDirectoryName(fullPath)!;
 
             var files = Directory.GetFiles(dirName, "*.json");
             var list = new List<DictionaryEntity>();
@@ -89,7 +89,7 @@ namespace Hangman.Helpers
                 {
                     DictionaryName = Path.GetFileNameWithoutExtension(file),
                     DateCreated = File.GetCreationTime(file).ToString("yyyy-MM-dd HH:mm"),
-                    NumberOfWords = GetWordsFromJsonFile(file).Count-1, // -1 because of the first line
+                    NumberOfWords = GetWordsFromJsonFile(file).Count-1,
                     DateModified = File.GetLastWriteTime(file).ToString("yyyy-MM-dd HH:mm"),
                     Upload = "Hidden",
                     Download = "Hidden",

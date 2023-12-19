@@ -24,7 +24,6 @@ namespace Hangman.ViewModels
         private string _dictionary = string.Empty;
         private bool _enabledButton = false;
         private string _hidden = "Hidden";
-        //TODO: zrobić zmienną _wordEntities zamiast _word, _explanation, _speechPart
         private string _word = string.Empty;
         private string _explanation = string.Empty;
         private string _speechPart = string.Empty;
@@ -64,7 +63,6 @@ namespace Hangman.ViewModels
         {
             Mouse.OverrideCursor = Cursors.Wait;
 
-            //może odpuścić sobie konstruktor?
             FtpHelper ftpHelper = new FtpHelper(AppSettings.FtpServer, AppSettings.FtpUser, AppSettings.FtpPassword, AppSettings.FtpPath);
             List<MyFile> ftpl = ftpHelper.GetListOfFiles();
             List<string> files = new List<string>();
@@ -72,7 +70,6 @@ namespace Hangman.ViewModels
             int filesGetCount = 0;
             bool Ok = true;
 
-            //select all file from ftp server which are not on local directory or there are newest and add then to list
             foreach (var f in ftpl)
             {
                 if (!File.Exists(_dictionaryDirPath + f.Name))
@@ -451,7 +448,6 @@ namespace Hangman.ViewModels
         }
 
 
-        //------------------implementacja interface
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

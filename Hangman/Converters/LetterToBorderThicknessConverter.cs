@@ -9,7 +9,6 @@ using System.Windows.Data;
 
 namespace Hangman.Converters
 {
-    //dodajemy ten konwerter do namespaces w xaml'u
     class LetterToBorderThicknessConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -23,7 +23,6 @@ namespace Hangman.Helpers
             _ftpUser = ftpUser;
             _ftpPassword = ftpPassword;
             _ftpPath = ftpPath;
-            //TODO: sorki - się zastanowię???
             _sessionOptions = new SessionOptions
             {
                 Protocol = Protocol.Ftp,
@@ -92,24 +91,20 @@ namespace Hangman.Helpers
                     session.Open(_sessionOptions);
 
                     TransferOptions transferOptions = new TransferOptions();
-                    //transferOptions.TransferMode = TransferMode.Ascii;
-                    //transferOptions.AddRawSettings("FtpProxyPort", "21");
 
                     foreach (var item in path)
                     {
-                        var res = session.PutFiles(item, "/" + _ftpPath + "/"); //, false, transferOptions
+                        var res = session.PutFiles(item, "/" + _ftpPath + "/");
 
                         if (!res.IsSuccess)
                         {
                             result = false;
-                            //MessageBox.Show("Error: " + res.Failures);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
                 var a = ex.Message;
             }
 
@@ -129,15 +124,12 @@ namespace Hangman.Helpers
                     session.Open(_sessionOptions);
 
                     TransferOptions transferOptions = new TransferOptions();
-                    //transferOptions.TransferMode = TransferMode.Ascii;
-                    //transferOptions.AddRawSettings("FtpProxyPort", "21");
 
-                    var res = session.GetFiles(path, fileName); //, false, transferOptions
+                    var res = session.GetFiles(path, fileName);
 
                     if (!res.IsSuccess)
                     {
                         result = false;
-                        //MessageBox.Show("Error: " + res.Failures);
                     }
                 }
             }

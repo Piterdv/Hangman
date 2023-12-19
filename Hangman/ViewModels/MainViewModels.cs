@@ -495,7 +495,6 @@ namespace Hangman.ViewModels
                     button.IsEnabled = true;
         }
 
-        //--------------------------INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
