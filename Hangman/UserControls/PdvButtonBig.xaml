@@ -1,0 +1,45 @@
+﻿<UserControl
+    x:Class="Hangman.UserControls.PdvButtonBig"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Hangman.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    d:DesignHeight="40"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+    <Grid>
+        <Button
+            Width="200"
+            Height="40"
+            Margin="-2"
+            Command="{Binding ElementName=root, Path=ButtonBigClickCommand}"
+            CommandParameter="{Binding ElementName=root, Path=ButtonBigClickCommandParameter}"
+            Style="{DynamicResource MetroButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="165" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="BigLetter"
+                    Margin="6,-2,0,0"
+                    Style="{StaticResource OrangeTBBg}"
+                    Text="N" />
+                <TextBlock
+                    x:Name="BtnText"
+                    Grid.Column="2"
+                    Width="158"
+                    Margin="5,2,0,0"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    FontWeight="Light"
+                    Style="{StaticResource OrangeTBNormal}"
+                    Text="Create new dictionary"
+                    TextAlignment="Left" />
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>
+

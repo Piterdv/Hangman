@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClickLetterToGuess" xml:space="preserve">
+    <value>Click the chosen letter to guess the entry...</value>
+  </data>
+  <data name="ClickNewGame" xml:space="preserve">
+    <value>Click button on the left: "NEW GAME", to start... </value>
+  </data>
+  <data name="HelpMe" xml:space="preserve">
+    <value>HELP ME, please...</value>
+  </data>
+  <data name="AllWordsDrawn" xml:space="preserve">
+    <value>All the words from the base have been drawn. 
+Do you want to start the draw from the beginning?</value>
+  </data>
+  <data name="LostGame" xml:space="preserve">
+    <value>You have lost. The correct password is: {0}</value>
+  </data>
+  <data name="NoDictionarySelected" xml:space="preserve">
+    <value>If you want to use your own dictionaries rather than downloading vocabulary from the internet, you must first select the one you are interested in. Usuallyto do this, click on the lowest small button on the left "√|" and select a dictionary in the window that opens. But now I’ll do it for you:)</value>
+  </data>
+  <data name="WinGame" xml:space="preserve">
+    <value>You are the winner, congratulations :)</value>
+  </data>
+  <data name="FetchingWord" xml:space="preserve">
+    <value>Uno momento, I need to take some word from server...</value>
+  </data>
+  <data name="WaitForWord" xml:space="preserve">
+    <value>Wait a moment, because you try to get too many words in a short period of time. 
+Wait 60s, please ;)</value>
+  </data>
+  <data name="WaitOver" xml:space="preserve">
+    <value>Oh yeah, now it's OK:) 
+You can click on button "NEW GAME"!</value>
+  </data>
+  <data name="ChooseDictionary" xml:space="preserve">
+    <value> - choose dictionary!</value>
+  </data>
+  <data name="WordsFromInternetInfo" xml:space="preserve">
+    <value> - i get words from internet</value>
+  </data>
+  <data name="Attention" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="NoChosenDictionary" xml:space="preserve">
+    <value> There's no chosen dictionary name. Please write it in the text box or choose from the list of dictionaries after clicking on  "≡Show all dictionaries" button :)</value>
+  </data>
+  <data name="NoDirectoriesWriteName" xml:space="preserve">
+    <value>There are no dictionaries!\nYou have to write the name of the dictionary (like Animals or Verbs or what you want) in the field "Dictionary name:" and then click on the button "‹Choose this dictionary" to create it."</value>
+  </data>
+  <data name="InsertAllNeededValue" xml:space="preserve">
+    <value>Insert all needed values, like word, explanation and speech part!</value>
+  </data>
+  <data name="WordAllreadyExists" xml:space="preserve">
+    <value>{0} already exists in the dictionary!\n\nIf you only want to change the explanation or part of speech, click on the "Save changes" button after your modifications.</value>
+  </data>
+  <data name="WordNotFound" xml:space="preserve">
+    <value>Word not found!</value>
+  </data>
+  <data name="HowManyWOrdsInDictionary" xml:space="preserve">
+    <value> dictionary: {0} | words#: {1}) "</value>
+  </data>
+  <data name="InsertWord" xml:space="preserve">
+    <value>Insert word!</value>
+  </data>
+  <data name="DictionaryHasBeenCreated" xml:space="preserve">
+    <value>Dictionary {0} has been created.</value>
+  </data>
+  <data name="InfoOnMsgBox" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="AllFilesAreUpToDate" xml:space="preserve">
+    <value>All files are up to date!</value>
+  </data>
+  <data name="OKonMessageBox" xml:space="preserve">
+    <value>OK:)</value>
+  </data>
+  <data name="AllFilesSynchronized" xml:space="preserve">
+    <value>All files have been synchronized!</value>
+  </data>
+  <data name="ErrorOnMsgBox" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOnUpload" xml:space="preserve">
+    <value>Something went wrong on upload!</value>
+  </data>
+  <data name="ErrorOnDownload" xml:space="preserve">
+    <value>Something went wrong on download!</value>
+  </data>
+</root>
