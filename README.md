@@ -1,2 +1,10 @@
 # Hangman
- Programik do słówek dla Nataszki:)
+ 
+### Programik do nauki słówek do użytku Nataszki:)
+
+#### Możesz:
+1. Pobierać angelskie słowa z internetu (Wordnik).
+2. Tworzyć własne "słowniki (czki:)".
+3. Edytować je. 
+4. Wybierać czy gramy na słowach pobranych z neta czy ze słownika.
+5. Synchronizować słowniki z innymi.
